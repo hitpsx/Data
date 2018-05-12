@@ -135,6 +135,77 @@ public class MySQL {
 		}
 		return user;
 	}
+	
+	public Lab userSelectInfor(int id) {
+		Lab lab = null;
+		
+		try {
+			stm = con.createStatement();
+			String sql = String.format("SELECT * FROM lab WHERE id=(select unitid from user where userid =%d)",id);
+			res = stm.executeQuery(sql);
+			if (res.next()) {
+				lab=new Lab();
+				lab.setId(res.getInt("id"));
+				lab.setLabname(res.getString("labname"));
+				lab.setLabpeople(res.getString("labpeople"));
+				lab.setEmail(res.getString("email"));
+				lab.setPhone(res.getString("phone"));
+				lab.setNumber(res.getString("number"));
+			}
+			stm.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lab;
+	}
+	
+	public Vector<Education> userSelectEdcation(int userid) {
+		Vector<Education> ret=new Vector<Education>();
+		try {
+			stm = con.createStatement();						
+			String sql = String.format("select * from  education where educationid=(select educationid from user where userid=%d)",userid);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				
+				Education edu = new Education();
+				edu.setId(res.getInt("id"));
+				edu.setDegree(res.getString("degree"));
+				edu.setEducationID(res.getInt("educationID"));
+				edu.setEntryday(res.getString("entryday"));
+				edu.setOutday(res.getString("outday"));
+				edu.setSchcool(res.getString("schcool"));
+				ret.add(edu);
+			}
+			stm.close();
+		  }catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return ret;
+	}
+	
+	public Vector<Work> userSelectWork(int userid) {
+		Vector<Work> ret=new Vector<Work>();
+		try {
+			stm = con.createStatement();						
+			String sql = String.format("select * from work where workid=(select workid from user where userid=%d)",userid);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				
+				Work edu = new Work();
+				edu.setId(res.getInt("id"));
+				edu.setPosition(res.getString("position"));
+				edu.setWorkID(res.getInt("workID"));
+				edu.setEntryday(res.getString("entryday"));
+				edu.setOutday(res.getString("outday"));
+				edu.setCompany(res.getString("company"));
+				ret.add(edu);
+			}
+			stm.close();
+		  }catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return ret;
+	}
 //	
 //	public String userUnit(int userid) {
 //		String unit="";

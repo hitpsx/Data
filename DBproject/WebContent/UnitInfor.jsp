@@ -368,57 +368,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 							<div class="col-md-8 profile-text">
 								<h6>
-									<s:property value="user.username" />
+									<s:property value="lab.labname" />
 								</h6>
 								<table>
 
 									<tr>
 										<td>ID</td>
 										<td>:</td>
-										<td><s:property value="user.userid" /></td>
+										<td><s:property value="lab.id" /></td>
 									</tr>
 
 									<tr>
-										<td>Sex</td>
+										<td>Manager</td>
 										<td>:</td>
-										<td><s:property value="user.sex" /></td>
-									</tr>
-
-									<tr>
-										<td>Unit</td>
-										<td>:</td>
-										<td><s:property value="user.unit" /></td>
-									</tr>
-
-									<tr>
-										<td>Email</td>
-										<td>:</td>
-										<td><s:property value="user.email" /></td>
+										<td><s:property value="lab.labpeople" /></td>
 									</tr>
 
 									<tr>
 										<td>Phone</td>
 										<td>:</td>
-										<td><s:property value="user.phone" /></td>
-									</tr>
-									<tr>
-										<td>Unitid</td>
-										<td>:</td>
-										<td><a href="unitInfor?userid=<s:property value="user.userid"/>"><s:property value="user.unitID" /></a></td>
+										<td><s:property value="lab.phone" /></td>
 									</tr>
 
 									<tr>
-										<td>WorkID</td>
+										<td>Email</td>
 										<td>:</td>
-										<td><a href="workSelect?userid=<s:property value="user.userid"/>"><s:property value="user.workID" /></a></td>
-									</tr>
-									
-									<tr>
-										<td>EducationID</td>
-										<td>:</td>
-										<td><a href="eduSelect?userid=<s:property value="user.userid"/>"><s:property value="user.educationID" /></a></td>
+										<td><s:property value="lab.email" /></td>
 									</tr>
 
+									<tr>
+										<td>Number</td>
+										<td>:</td>
+										<td><s:property value="lab.number" /></td>
+									</tr>
 
 								</table>
 							</div>

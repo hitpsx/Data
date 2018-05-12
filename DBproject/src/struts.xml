@@ -26,7 +26,22 @@
 			<result name="success">/Home.jsp</result>
 			<result name="error">/404.html</result>
 		</action>
-
+		
+		<action name="unitInfor" class="com.action.UserFunction" method="unitInfor">
+			<result name="success">/UnitInfor.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
+		<action name="eduSelect" class="com.action.UserFunction" method="userEdu">
+			<result name="success">/eduLife.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
+		<action name="workSelect" class="com.action.UserFunction" method="userWork">
+			<result name="success">/workLife.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
 	</package>
 </struts>
 

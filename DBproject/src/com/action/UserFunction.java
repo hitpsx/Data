@@ -1,6 +1,6 @@
 package com.action;
 
-import com.model.User;
+import com.model.*;
 
 import com.sql.MySQL;
 import java.text.ParseException;
@@ -10,10 +10,11 @@ import java.util.Vector;
 
 
 public class UserFunction {
+	
 	private int userid;
+
 	private String username;
 	private String password;
-	private User user;
 	private String password1;
 	private String password2;
 	private String email;
@@ -29,7 +30,37 @@ public class UserFunction {
 	private int workID;
 	private int inviteID;
 	
+	//model 类
+	private Lab lab;
+	private User user;
+	private Vector<Education> edu;
+	private Vector<Work> work;
+	
+	public Vector<Work> getWork() {
+		return work;
+	}
+	public void setWork(Vector<Work> work) {
+		this.work = work;
+	}
+	public Vector<Education> getEdu() {
+		return edu;
+	}
+	public void setEdu(Vector<Education> edu) {
+		this.edu = edu;
+	}
 
+	public void setUnitID(int unitID) {
+		this.unitID=unitID;
+	}
+	public int  getUnitID() {
+		return unitID;
+	}
+	public Lab getLab() {
+		return lab;
+	}
+	public void setLab(Lab lab) {
+		this.lab=lab;
+	}
 	public int getDeleteuser() {
 		return deleteuser;
 	}
@@ -151,6 +182,9 @@ public class UserFunction {
 		}
 	}
 	
+	/*
+	 * 	用户注册
+	 */
 	public String UserRegis() {
 		MySQL sql = new MySQL();
 		int id=sql.Number();
@@ -168,7 +202,9 @@ public class UserFunction {
 		return "success";
 	}
 
-	
+	 /*
+	  * 用户登陆
+	  */
 	 public String UserLogin() {
 		MySQL sql=new MySQL();
 		user=sql.Account(username, password);
@@ -178,31 +214,55 @@ public class UserFunction {
 		return "success";
 	}
 	
-//	public String Home() {
-//		MySQL sql=new MySQL();
-//		user=sql.userInfor(userid);
-//		sql.close();
-//		
-//		if(user.getType().equals("2") || user.getType().equals("1"))  //超级管理员
-//			return "admin";
-//		else if(user.getType().equals("0")) //成员用户
-//			return "success";
-//		else if(user.getType().equals("3"))
-//			return "Repair";
-//		return "error";
-//	}
-//	
-//	
+	 /*
+	  * 返回主界面
+	  */
+	public String Home() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		sql.close();
+		return "success";
+	}
+	
+	/*
+	 *  查询个人信息
+	 */
 	public String Profile() {
 		MySQL sql=new MySQL();
 		user=sql.userInfor(userid);
 		sql.close();
-		System.out.println(user.getUnitID());
-		System.out.println(user.getEducationID());
-		System.out.println(user.getWorkID());
 		return "success";
 	}
 	
+	/*
+	 *  查询实验室信息
+	 */
+	public String unitInfor() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		lab=sql.userSelectInfor(userid);
+		return "success";
+	}
+	
+	/*
+	 *  查询教育经历
+	 */
+	public String userEdu() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		edu=sql.userSelectEdcation(userid);
+		return "success";
+	}
+	
+	/*
+	 * 查询工作经历
+	 */
+	public String userWork() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		work=sql.userSelectWork(userid);
+		return "success";
+	}
 //	public String UserManage() {
 //		MySQL sql=new MySQL();
 //		user=sql.userInfor(userid);
@@ -246,4 +306,6 @@ public class UserFunction {
 //		user=sql.userInfor(userid);
 //		return "success";
 //	}
+
+
 }
