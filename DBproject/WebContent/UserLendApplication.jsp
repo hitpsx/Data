@@ -1,14 +1,11 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Education</title>
+<title>Lend Application</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords"
-	content="Minimal Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
@@ -16,115 +13,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/font-awesome.css" rel="stylesheet">
 <script src="js/jquery.min.js"> </script>
 <script src="js/bootstrap.min.js"> </script>
-
+<link rel="stylesheet"
+	href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <!-- Mainly scripts -->
 <script src="js/jquery.metisMenu.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
-<style type="text/css">
-table.hovertable {
-	font-family: verdana, arial, sans-serif;
-	font-size: 11px;
-	color: #ffffff;
-	border-width: 1px;
-	border-color: #999999;
-	border-collapse: collapse;
-}
-
-table.hovertable th {
-	background-color: #5182bb;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #5182bb;
-	font-size: 11px;
-	color: #FFFFFF;
-}
-
-table.hovertable tr {
-	background-color: #ffffff;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #5182bb;
-	font-size: 11px;
-	color: #ffffff;
-}
-
-table.hovertable td {
-	border-width: 0px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #5182bb;
-	color: #333333;
-}
-
-.blank1 {
-	float: right;
-	width: 35%;
-	height: 23px
-}
-
-.blank2 {
-	float: right;
-	width: 150px;
-	height: 23px
-}
-
-.unread {
-	float: right;
-	width: 75px;
-	height: 23px
-}
-
-.readed {
-	float: right;
-	width: 75px;
-	height: 23px
-}
-
-.pagination_1 {
-	display: inline-block;
-	padding-left: 18%;
-	margin: 20px 0;
-	border-radius: 4px;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
-}
-
-.pagination_1>li>a, .pagination_1>li>span {
-	position: relative;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
-	line-height: 1.42857143;
-	color: #337ab7;
-	text-decoration: none;
-	background-color: #fff;
-	border: 1px solid #ddd;
-}
-</style>
 <!-- Custom and plugin javascript -->
 <link href="css/custom.css" rel="stylesheet">
 <script src="js/custom.js"></script>
@@ -143,61 +37,57 @@ li {
 				screenfull.toggle($('#container')[0]);
 			});
 			
-
+			$( "#datepicker" ).datepicker();
+			$( "#datepicker1" ).datepicker();
 			
 		});
 		</script>
+
+<!----->
+
 </head>
 <body>
-	<%
-     java.util.Date date=new java.util.Date(12,333,555,0,9);
-     pageContext.setAttribute("date",date);
-%>
 	<div id="wrapper">
 		<!----->
 		<nav class="navbar-default navbar-static-top" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<h1>
-					<a class="navbar-brand"
-						href="Home?userid=<s:property value="user.userid"/>">Home</a>
-				</h1>
-			</div>
-			<div class=" border-bottom">
-				<div class="full-left">
-					<script type="text/javascript">  
-        	  function startTime(){  
-				  var today=new Date()  
-				  var week=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
-				  var monthh=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
-				  var month=today.getMonth()+1  
-				  var date=today.getDate()  
-				  var day=today.getDay()  
-				  var h=today.getHours()  
-				  var m=today.getMinutes()  
-				  var s=today.getSeconds()  
-				  // add a zero in front of numbers<10  
-				  h=checkTime(h)  
-				  m=checkTime(m)  
-				  s=checkTime(s)  
-				  document.getElementById('time').innerHTML=monthh[month-1]+" "+date+"th "+week[day]+"  "+h+":"+m+":"+s+" "  
-				  t=setTimeout('startTime()',500)  
-				 }  
-					  
-					 function checkTime(i){  
-					 if (i<10)   
-					   {i="0" + i}  
-					   return i  
+		<div class="navbar-header">
+			<h1>
+				<a class="navbar-brand"
+					href="Home?userid=<s:property value="user.userid"/>">Home</a>
+			</h1>
+		</div>
+		<div class=" border-bottom">
+			<div class="full-left">
+				<script type="text/javascript">    
+               function startTime(){  
+					  var today=new Date()  
+					  var week=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+					  var monthh=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+					  var month=today.getMonth()+1  
+					  var date=today.getDate()  
+					  var day=today.getDay()  
+					  var h=today.getHours()  
+					  var m=today.getMinutes()  
+					  var s=today.getSeconds()  
+					  // add a zero in front of numbers<10  
+					  h=checkTime(h)  
+					  m=checkTime(m)  
+					  s=checkTime(s)  
+					  document.getElementById('time').innerHTML=monthh[month-1]+" "+date+"th "+week[day]+"  "+h+":"+m+":"+s+" "  
+					  t=setTimeout('startTime()',500)  
 					 }  
-				</script>
-					<body onload="startTime()">
-						<div id="time"></div>
-				</div>
+					    
+					 function checkTime(i){    
+					 if (i<10)     
+					   {i="0" + i}    
+					   return i    
+					 }    
+					</script>
+
+				<body onload="startTime()">
+
+					<span id="time" class="nav-label"></span>
+					<div class="clearfix"></div>
 			</div>
 
 
@@ -211,11 +101,8 @@ li {
 							class=" name-caret"><s:property value="user.username" /><i
 								class="caret"></i></span><img src="<s:property value="user.picture"/>"></a>
 						<ul class="dropdown-menu " role="menu">
-							<li><s:a action="Profile">
-									<s:param name="userid">
-										<s:property value="user.userid" />
-									</s:param>
-									<i class="fa fa-user"></i>Profile</s:a></li>
+							<li><a href="profile.html"><i class="fa fa-user"></i>Edit
+									Profile</a></li>
 							<li><a href="calendar.html"><i class="fa fa-calendar"></i>Calender</a></li>
 						</ul></li>
 
@@ -227,6 +114,7 @@ li {
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
+
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-indent nav_icon"></i> <span class="nav-label">Equipment
 									Class</span><span class="fa arrow"></span></a>
@@ -395,38 +283,45 @@ li {
 								<span class="nav-label">Select</span>
 							</s:a></li>
 
-						<li><s:a action="SelectHome">
-								<s:param name="userid">
-									<s:property value="user.userid" />
-								</s:param>
-								<i class="fa fa-picture-o nav_icon"></i>
-								<span class="nav-label">EquManage</span>
-							</s:a></li>
+						<li><a href="#" class=" hvr-bounce-to-right"><i
+								class="fa fa-list nav_icon"></i> <span class="nav-label">Management</span><span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><s:a action="SelectHome">
+										<s:param name="userid">
+											<s:property value="user.userid" />
+										</s:param>
+										<i class="fa fa-picture-o nav_icon"></i>
+										<span class="nav-label">Find</span>
+									</s:a></li>
+								<li><a
+									href="HomeRepair?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
+							</ul></li>
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Lend
 									Management</span><span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><s:a action="HomeLend">
-										<s:param name="userid">
-											<s:property value="user.userid" />
-										</s:param>
-										<i class="fa fa-align-left nav_icon"></i>
-										<span class="nav-label">Lend out</span>
-									</s:a></li>
+								<li><a
+									href="HomeLend?userid=<s:property value="user.userid"/>&page=0"><i
+										class="fa fa-align-left nav_icon"></i> <span class="nav-label">Lend
+											out</span></a></li>
 								<li><a
 									href="HomeLendin?userid=<s:property value="user.userid"/>&page=0"
 									class=" hvr-bounce-to-right"><i
 										class="fa fa-check-square-o nav_icon"></i>Lend in</a></li>
 							</ul></li>
 
-						<li><s:a action="HomeRetire">
-								<s:param name="userid">
-									<s:property value="user.userid" />
-								</s:param>
-								<i class="fa fa-th nav_icon"></i>
-								<span class="nav-label">Retirement</span>
-							</s:a></li>
+						<li><a
+							href="HomeRetire?userid=<s:property value="user.userid"/>&page=0"><i
+								class="fa fa-th nav_icon"></i> <span class="nav-label">Retirement</span></a>
+						</li>
 
+						<!-- <li>
+                        <a href="graph?userid=<s:property value="user.userid"/>" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>Graphs</a>
+                    </li>
+                     -->
 
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-cog nav_icon"></i> <span class="nav-label">Settings</span><span
@@ -436,7 +331,7 @@ li {
 										class="fa fa-sign-in nav_icon"></i>Signin</a></li>
 								<li><a href="registration.html"
 									class=" hvr-bounce-to-right"><i
-										class="fa fa-sign-in nav_icon"></i>Singup</a></li>
+										class="fa fa-sign-in nav_icon"></i>Signup</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -449,52 +344,128 @@ li {
 				<div class="banner">
 					<h2>
 						<a href="Home?userid=<s:property value="user.userid"/>">Home</a> <i
-							class="fa fa-angle-right"></i> <span>Lend information</span>
+							class="fa fa-angle-right"></i> <span>Lend Application</span>
 					</h2>
 				</div>
 				<!--//banner-->
-				<!--faq-->
-				<div class="blank">
+				<!--grid-->
+				<div class="grid-form">
+					<!----->
+
+					<!---->
+					<div class="grid-form1">
+						<div class="tab-content">
+							<div class="tab-pane active" id="horizontal-form">
+								<form class="form-horizontal" action="LendManage" method="post">
+									<input type="hidden" name=userid
+										value=<s:property value="user.userid"/> /> <input
+										type="hidden" name=EquName
+										value=<s:property value="Cp.EquName"/> /> <input
+										type="hidden" name=LendNumber
+										value=<s:property value="Cp.EquNumber"/> />
+									<div class="form-group">
+										<label for="disabledinput" class="col-sm-2 control-label">Device
+											ID</label>
+										<div class="col-sm-8">
+											<input disabled="" type="text" class="form-control1"
+												id="disabledinput"
+												value="<s:property value="Cp.EquNumber"/>"
+												readonly="readonly">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-2 control-label">Device
+											name</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control1" id="focusedinput"
+												value="<s:property value="Cp.EquName"/>" readonly="readonly">
+										</div>
+									</div>
 
 
-					<div class="blank-page">
-						<form class="form" action="" method="post">
-							<input type="hidden" name=userid
-								value=<s:property value="user.userid"/> />
-							<table class="hovertable">
-								<tr>
-									<th>EducationID</th>
-									<th>Name</th>
-									<th>Degree</th>
-									<th>schcool</th>
-									<th>Entryday</th>
-									<th>Outday</th>
-								</tr>
-								<s:iterator value="edu" var="Le">
-									<tr onmouseover="this.style.backgroundColor='#fdf5e6';"
-										onmouseout="this.style.backgroundColor='#ffffff';">
-										<td><s:property value="#Le.educationID" /></td>
-										<td><s:property value="user.username" /></td>
-										<td><s:property value="#Le.degree" /></td>
-										<td><s:property value="#Le.schcool" /></td>
-										<td><s:property value="#Le.entryday" /></td>
-										<td><s:property value="#Le.outday" /></td>
-									</tr>
-								</s:iterator>
-							</table>
-						</form>
-						
+
+									<div class="form-group">
+										<label for="selector1" class="col-sm-2 control-label">Loan
+											unit</label>
+										<div class="col-sm-8">
+											<select name="unitlend" id="selector1" class="form-control1">
+												<option>AI</option>
+												<option>CS</option>
+												<option>Big Data</option>
+												<option>Welfire</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-2 control-label">Title</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control1" id="focusedinput"
+												name="maintext">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-2 control-label">Applicant</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control1" id="focusedinput"
+												name="Applicant" placeholder="Who made the application">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-2 control-label">Applicatdate</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control3" id="datepicker"
+												name="ApplicationDate1"> <input type="text"
+												class="form-control3" id="datepicker1"
+												name="ApplicationDate2">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="txtarea1" class="col-sm-2 control-label">Application</label>
+										<div class="col-sm-8">
+											<textarea name="Application" id="txtarea1" cols="50" rows="4"
+												class="form-control1"></textarea>
+										</div>
+									</div>
+									<div class="panel-footer">
+
+										<div class="row">
+											<div class="col-sm-8 col-sm-offset-2">
+												<button class="btn-primary btn">Ok</button>
+												<s:a href="HomeSelect?userid=%{user.id}">
+													<input type="button" value="Cancel" class="btn-default btn">
+												</s:a>
+												<s:a
+													href="LendButton?userid=%{user.id}&EquNumber=%{EquNumber}">
+													<input type="button" value="reset" class="btn-inverse btn">
+												</s:a>
+
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div class="bs-example" data-example-id="form-validation-states">
+
+
+
+							</form>
+						</div>
 					</div>
-				</div>
-
-				<!--//faq-->
-				<!---->
-
-				<!---->
-				<!--scrolling js-->
-				<script src="js/jquery.nicescroll.js"></script>
-				<script src="js/scripts.js"></script>
-				<!--//scrolling js-->
+					<!--//grid-->
+					<!---->
+					<!--scrolling js-->
+					<script src="js/jquery.nicescroll.js"></script>
+					<script src="js/scripts.js"></script>
+					<!--//scrolling js-->
+					<!---->
 </body>
 </html>
+
 

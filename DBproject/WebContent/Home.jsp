@@ -280,7 +280,7 @@
 									</ul></li>
 
 							</ul></li>
-						<li><s:a action="HomeSelect">
+						<li><s:a action="SelectHome">
 								<s:param name="userid">
 									<s:property value="user.userid" />
 								</s:param>

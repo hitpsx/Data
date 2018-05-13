@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Education</title>
+<title>Select Equipment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords"
@@ -11,6 +11,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!--<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />-->
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <link href="css/font-awesome.css" rel="stylesheet">
@@ -20,111 +21,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- Mainly scripts -->
 <script src="js/jquery.metisMenu.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
-<style type="text/css">
-table.hovertable {
-	font-family: verdana, arial, sans-serif;
-	font-size: 11px;
-	color: #ffffff;
-	border-width: 1px;
-	border-color: #999999;
-	border-collapse: collapse;
-}
-
-table.hovertable th {
-	background-color: #5182bb;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #5182bb;
-	font-size: 11px;
-	color: #FFFFFF;
-}
-
-table.hovertable tr {
-	background-color: #ffffff;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #5182bb;
-	font-size: 11px;
-	color: #ffffff;
-}
-
-table.hovertable td {
-	border-width: 0px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #5182bb;
-	color: #333333;
-}
-
-.blank1 {
-	float: right;
-	width: 35%;
-	height: 23px
-}
-
-.blank2 {
-	float: right;
-	width: 150px;
-	height: 23px
-}
-
-.unread {
-	float: right;
-	width: 75px;
-	height: 23px
-}
-
-.readed {
-	float: right;
-	width: 75px;
-	height: 23px
-}
-
-.pagination_1 {
-	display: inline-block;
-	padding-left: 18%;
-	margin: 20px 0;
-	border-radius: 4px;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
-}
-
-.pagination_1>li>a, .pagination_1>li>span {
-	position: relative;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
-	line-height: 1.42857143;
-	color: #337ab7;
-	text-decoration: none;
-	background-color: #fff;
-	border: 1px solid #ddd;
-}
-</style>
 <!-- Custom and plugin javascript -->
 <link href="css/custom.css" rel="stylesheet">
 <script src="js/custom.js"></script>
@@ -149,10 +45,6 @@ li {
 		</script>
 </head>
 <body>
-	<%
-     java.util.Date date=new java.util.Date(12,333,555,0,9);
-     pageContext.setAttribute("date",date);
-%>
 	<div id="wrapper">
 		<!----->
 		<nav class="navbar-default navbar-static-top" role="navigation">
@@ -171,30 +63,29 @@ li {
 			<div class=" border-bottom">
 				<div class="full-left">
 					<script type="text/javascript">  
-        	  function startTime(){  
-				  var today=new Date()  
-				  var week=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
-				  var monthh=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
-				  var month=today.getMonth()+1  
-				  var date=today.getDate()  
-				  var day=today.getDay()  
-				  var h=today.getHours()  
-				  var m=today.getMinutes()  
-				  var s=today.getSeconds()  
-				  // add a zero in front of numbers<10  
-				  h=checkTime(h)  
-				  m=checkTime(m)  
-				  s=checkTime(s)  
-				  document.getElementById('time').innerHTML=monthh[month-1]+" "+date+"th "+week[day]+"  "+h+":"+m+":"+s+" "  
-				  t=setTimeout('startTime()',500)  
-				 }  
-					  
-					 function checkTime(i){  
-					 if (i<10)   
-					   {i="0" + i}  
-					   return i  
+	        	function startTime(){  
+					  var today=new Date()  
+					  var week=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+					  var monthh=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+					  var month=today.getMonth()+1  
+					  var date=today.getDate()  
+					  var day=today.getDay()  
+					  var h=today.getHours()  
+					  var m=today.getMinutes()  
+					  var s=today.getSeconds()  
+					  // add a zero in front of numbers<10  
+					  h=checkTime(h)  
+					  m=checkTime(m)  
+					  s=checkTime(s)  
+					  document.getElementById('time').innerHTML=monthh[month-1]+" "+date+"th "+week[day]+"  "+h+":"+m+":"+s+" "  
+					  t=setTimeout('startTime()',500)  
 					 }  
-				</script>
+						 function checkTime(i){  
+						 if (i<10)   
+						   {i="0" + i}  
+						   return i  
+						 }  
+					</script>
 					<body onload="startTime()">
 						<div id="time"></div>
 				</div>
@@ -395,13 +286,22 @@ li {
 								<span class="nav-label">Select</span>
 							</s:a></li>
 
-						<li><s:a action="SelectHome">
-								<s:param name="userid">
-									<s:property value="user.userid" />
-								</s:param>
-								<i class="fa fa-picture-o nav_icon"></i>
-								<span class="nav-label">EquManage</span>
-							</s:a></li>
+						<li><a href="#" class=" hvr-bounce-to-right"><i
+								class="fa fa-list nav_icon"></i> <span class="nav-label">Management</span><span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><s:a action="SelectHome">
+										<s:param name="userid">
+											<s:property value="user.userid" />
+										</s:param>
+										<i class="fa fa-picture-o nav_icon"></i>
+										<span class="nav-label">Find</span>
+									</s:a></li>
+								<li><a
+									href="HomeRepair?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
+							</ul></li>
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Lend
 									Management</span><span class="fa arrow"></span></a>
@@ -427,6 +327,10 @@ li {
 								<span class="nav-label">Retirement</span>
 							</s:a></li>
 
+						<li><a href="graph?userid=<s:property value="user.userid"/>"
+							class=" hvr-bounce-to-right"> <i
+								class="fa fa-area-chart nav_icon"></i>Graphs
+						</a></li>
 
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-cog nav_icon"></i> <span class="nav-label">Settings</span><span
@@ -449,48 +353,36 @@ li {
 				<div class="banner">
 					<h2>
 						<a href="Home?userid=<s:property value="user.userid"/>">Home</a> <i
-							class="fa fa-angle-right"></i> <span>Lend information</span>
+							class="fa fa-angle-right"></i> <span>Select</span>
 					</h2>
 				</div>
 				<!--//banner-->
-				<!--faq-->
-				<div class="blank">
-
-
-					<div class="blank-page">
-						<form class="form" action="" method="post">
-							<input type="hidden" name=userid
-								value=<s:property value="user.userid"/> />
-							<table class="hovertable">
-								<tr>
-									<th>EducationID</th>
-									<th>Name</th>
-									<th>Degree</th>
-									<th>schcool</th>
-									<th>Entryday</th>
-									<th>Outday</th>
-								</tr>
-								<s:iterator value="edu" var="Le">
-									<tr onmouseover="this.style.backgroundColor='#fdf5e6';"
-										onmouseout="this.style.backgroundColor='#ffffff';">
-										<td><s:property value="#Le.educationID" /></td>
-										<td><s:property value="user.username" /></td>
-										<td><s:property value="#Le.degree" /></td>
-										<td><s:property value="#Le.schcool" /></td>
-										<td><s:property value="#Le.entryday" /></td>
-										<td><s:property value="#Le.outday" /></td>
-									</tr>
-								</s:iterator>
-							</table>
-						</form>
-						
-					</div>
+				<div class="gallery">
+					<form class="form" action="CsSelect" method="post">
+						<div class="input-group input-group-in">
+							<input type="text" name="Aim" class="form-control2 input-search"
+								placeholder="Search..."> <input type="hidden"
+								name=userid value=<s:property value="user.userid"/> /> <input
+								type="hidden" name=page value=<s:property value="0"/> /> <span
+								class="input-group-btn">
+								<button class="btn btn-success" type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+						<!-- Input Group -->
+					</form>
 				</div>
 
-				<!--//faq-->
-				<!---->
 
 				<!---->
+				<link rel="stylesheet" href="css/swipebox.css">
+				<script src="js/jquery.swipebox.min.js"></script>
+				<script type="text/javascript">
+			jQuery(function($) {
+				$(".swipebox").swipebox();
+			});
+</script>
 				<!--scrolling js-->
 				<script src="js/jquery.nicescroll.js"></script>
 				<script src="js/scripts.js"></script>

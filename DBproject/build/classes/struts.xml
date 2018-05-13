@@ -5,8 +5,7 @@
 	<include file="struts-default.xml" />
 	<package name="com.action" extends="struts-default">
 		<!-- 用户登录以及注册 -->
-		<action name="UserLogin" class="com.action.UserFunction"
-			method="UserLogin">
+		<action name="UserLogin" class="com.action.UserFunction" method="UserLogin">
 			<result name="success">/Home.jsp</result>
 			<result name="error">/LoginError.html</result>
 		</action>
@@ -41,7 +40,43 @@
 			<result name="success">/workLife.jsp</result>
 			<result name="error">/404.html</result>
 		</action>
+				
+		<!-- 用户查询 -->	
+		<action name="SelectHome" class="com.action.selectFunction" method="SelectHome">
+			<result name="success">/EquInformation.jsp</result>
+			<result name="error">/init.jsp</result>
+		</action>
 		
+		<action name="CsSelect" class="com.action.selectFunction" method="CsSelect">
+			<result name="success">/SearchResult.jsp</result>
+			<result name="error">/init.jsp</result>
+		</action>
+		
+		<!--用户报废 -->
+		<action name="RetirButton" class="com.action.RetireFunction" method="RetirButton">
+			<result name="success">/UserRetireApplication.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
+		<action name="RetireManage" class="com.action.RetireFunction" method="RetireManage">
+			<result name="success">/Home.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
+		<action name="HomeRetire" class="com.action.RetireFunction" method="HomeRetire">
+			<result name="success">/UserRetireResult.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
+		<!-- 用户借出管理 -->
+		<action name="LendButton" class="com.action.LendFunction" method="LendButton">
+			<result name="success">/UserLendApplication.jsp</result>
+			<result name="error">/init.jsp</result>
+		</action>
+		<action name="LendManage" class="com.action.LendFunction" method="LendManage">
+			<result name="success">/Home.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
 	</package>
 </struts>
 

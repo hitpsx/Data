@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Education</title>
+<title>Retirement</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords"
@@ -80,50 +80,6 @@ table.hovertable td {
 	width: 75px;
 	height: 23px
 }
-
-.pagination_1 {
-	display: inline-block;
-	padding-left: 18%;
-	margin: 20px 0;
-	border-radius: 4px;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
-}
-
-.pagination_1>li>a, .pagination_1>li>span {
-	position: relative;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
-	line-height: 1.42857143;
-	color: #337ab7;
-	text-decoration: none;
-	background-color: #fff;
-	border: 1px solid #ddd;
-}
 </style>
 <!-- Custom and plugin javascript -->
 <link href="css/custom.css" rel="stylesheet">
@@ -149,10 +105,6 @@ li {
 		</script>
 </head>
 <body>
-	<%
-     java.util.Date date=new java.util.Date(12,333,555,0,9);
-     pageContext.setAttribute("date",date);
-%>
 	<div id="wrapper">
 		<!----->
 		<nav class="navbar-default navbar-static-top" role="navigation">
@@ -395,13 +347,22 @@ li {
 								<span class="nav-label">Select</span>
 							</s:a></li>
 
-						<li><s:a action="SelectHome">
-								<s:param name="userid">
-									<s:property value="user.userid" />
-								</s:param>
-								<i class="fa fa-picture-o nav_icon"></i>
-								<span class="nav-label">EquManage</span>
-							</s:a></li>
+						<li><a href="#" class=" hvr-bounce-to-right"><i
+								class="fa fa-list nav_icon"></i> <span class="nav-label">Management</span><span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><s:a action="SelectHome">
+										<s:param name="userid">
+											<s:property value="user.userid" />
+										</s:param>
+										<i class="fa fa-picture-o nav_icon"></i>
+										<span class="nav-label">Find</span>
+									</s:a></li>
+								<li><a
+									href="HomeRepair?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
+							</ul></li>
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Lend
 									Management</span><span class="fa arrow"></span></a>
@@ -428,6 +389,7 @@ li {
 							</s:a></li>
 
 
+
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-cog nav_icon"></i> <span class="nav-label">Settings</span><span
 								class="fa arrow"></span></a>
@@ -449,7 +411,8 @@ li {
 				<div class="banner">
 					<h2>
 						<a href="Home?userid=<s:property value="user.userid"/>">Home</a> <i
-							class="fa fa-angle-right"></i> <span>Lend information</span>
+							class="fa fa-angle-right"></i> <span>Retirement
+							information</span>
 					</h2>
 				</div>
 				<!--//banner-->
@@ -463,27 +426,59 @@ li {
 								value=<s:property value="user.userid"/> />
 							<table class="hovertable">
 								<tr>
-									<th>EducationID</th>
-									<th>Name</th>
-									<th>Degree</th>
-									<th>schcool</th>
-									<th>Entryday</th>
-									<th>Outday</th>
+									<th>EquNumber</th>
+									<th>EquName</th>
+
+									<th>EquDate</th>
+									<th>Applicant</th>
+
+									<th>Sta</th>
+									<th>EquUnit</th>
+
+									<th>Equclass</th>
+									<th>application</th>
+
+									<th>InventoryPosition</th>
+									<th>UnitPrice</th>
+
+									<th>ApplicationDate</th>
+
 								</tr>
-								<s:iterator value="edu" var="Le">
+								<s:iterator value="Re" var="re">
 									<tr onmouseover="this.style.backgroundColor='#fdf5e6';"
 										onmouseout="this.style.backgroundColor='#ffffff';">
-										<td><s:property value="#Le.educationID" /></td>
-										<td><s:property value="user.username" /></td>
-										<td><s:property value="#Le.degree" /></td>
-										<td><s:property value="#Le.schcool" /></td>
-										<td><s:property value="#Le.entryday" /></td>
-										<td><s:property value="#Le.outday" /></td>
+										<td><s:property value="#re.EquNumber" /></td>
+										<td><a
+											href="EquInformation?userid=<s:property value="user.userid"/>&EquNumber=<s:property value="#re.EquNumber"/>"><s:property
+													value="#re.EquName" /></a></td>
+
+										<td><s:property value="#re.EquDate" /></td>
+										<td><s:property value="#re.Applicant" /></td>
+
+										<td><s:property value="#re.EquSta" /></td>
+										<td><s:property value="#re.EquUnit" /></td>
+										<td><s:property value="#re.EquClass" /></td>
+
+										<td><s:property value="#re.application" /></td>
+										<td><s:property value="#re.InventoryPosition" /></td>
+
+										<td><s:property value="#re.UnitPrice" /></td>
+										<td><s:property value="#re.ApplicationDate" /></td>
+
 									</tr>
 								</s:iterator>
 							</table>
 						</form>
-						
+						<ul class="pagination">
+							<li><a
+								href="HomeRetire?userid=<s:property value="user.userid"/>&page=0">&laquo;</a></li>
+							<% for(int i=0;i<10;i++){ %>
+							<li><a
+								href="HomeRetire?userid=<s:property value="user.userid"/>&page=<%=i%>"><%=i%></a></li>
+							<%}%>
+							<li><a
+								href="HomeRetire?userid=<s:property value="user.userid"/>&page=9">&raquo;</a></li>
+						</ul>
 					</div>
 				</div>
 

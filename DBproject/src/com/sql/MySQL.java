@@ -206,22 +206,235 @@ public class MySQL {
 			}
 		return ret;
 	}
-//	
-//	public String userUnit(int userid) {
-//		String unit="";
-//		try {
-//			stm = con.createStatement();
-//			String sql = String.format("SELECT unit FROM user where userid = %d",userid);
-//			res = stm.executeQuery(sql);
-//			if(res.next()) {
-//				unit=res.getString("Unit");
-//			}
-//			stm.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return unit;
-//	}
+	
+	public String userUnit(int userid) {
+		String unit="";
+		try {
+			stm = con.createStatement();
+			String sql = String.format("SELECT unit FROM user where userid = %d",userid);
+			res = stm.executeQuery(sql);
+			if(res.next()) {
+				unit=res.getString("Unit");
+			}
+			stm.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return unit;
+	}
+	
+	public Vector<Cs> selectEqu(int page,String unit,int type) {
+		Vector<Cs> ret=new Vector<Cs>();
+		try {
+			stm = con.createStatement();
+			String sql="";
+			sql=  String.format("SELECT * FROM cs where EquUnit = '%s' and EquSta regexp '%s' limit %d,5",unit,"空闲",page*5);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				Cs Cp=new Cs();
+				
+				Cp.setEquNumber(res.getInt("EquNumber"));
+				Cp.setEquQua(res.getString("EquQua"));
+				Cp.setEquName(res.getString("EquName"));
+				Cp.setModelSpe(res.getString("ModelSpe"));
+				Cp.setEquDate(res.getString("EquDate"));
+								
+				Cp.setEquSta(res.getString("EquSta"));
+				Cp.setEquClass(res.getString("EquClass"));
+				Cp.setEquUnit(res.getString("EquUnit"));
+				Cp.setManufacturer(res.getString("Manufacturer"));
+				Cp.setSupplier(res.getString("Supplier"));
+				
+				Cp.setSpecifications(res.getString("Specifications"));
+				Cp.setOrderDate(res.getString("OrderDate"));
+				Cp.setInspector(res.getString("Inspector"));
+				Cp.setQuality(res.getString("Quality"));
+				Cp.setMaintainer(res.getString("Maintainer"));
+				
+				Cp.setInventoryPosition(res.getString("InventoryPosition"));
+				Cp.setPresentPosition(res.getString("PresentPosition"));
+				Cp.setUnitPrice(res.getString("UnitPrice"));
+				
+				Cp.setOrderQuantity(res.getInt("OrderQuantity"));
+				Cp.setHandler(res.getString("Handler"));
+				Cp.setExtra(res.getString("extra"));
+				
+				ret.add(Cp);
+			}
+			stm.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public Vector<Cs> selectCsAll(String aim,String unit,int page) {
+	Vector<Cs> ret=new Vector<Cs>();
+	try {
+		stm = con.createStatement();
+		String sql=String.format("SELECT * FROM cs where concat(EquNumber, EquName, EquQua, ModelSpe, EquDate, EquSta, EquClass, "
+					+ "EquUnit, Manufacturer, Supplier, Specifications, OrderDate, Inspector, Quality,"
+					+ "  Maintainer, InventoryPosition, PresentPosition, UnitPrice,"
+					+ " OrderQuantity, Handler,extra) like  \"%%%s%%\"and  EquUnit ='%s' limit %d,5",aim,unit,page*5);
+		System.out.println(sql);
+		res = stm.executeQuery(sql);
+		while(res.next()) {
+			Cs Cp=new Cs();
+			
+			Cp.setEquNumber(res.getInt("EquNumber"));
+			Cp.setEquQua(res.getString("EquQua"));
+			Cp.setEquName(res.getString("EquName"));
+			Cp.setModelSpe(res.getString("ModelSpe"));
+			Cp.setEquDate(res.getString("EquDate"));
+			
+			Cp.setEquSta(res.getString("EquSta"));
+			Cp.setEquClass(res.getString("EquClass"));
+			Cp.setEquUnit(res.getString("EquUnit"));
+			Cp.setManufacturer(res.getString("Manufacturer"));
+			Cp.setSupplier(res.getString("Supplier"));
+			
+			Cp.setSpecifications(res.getString("Specifications"));
+			Cp.setOrderDate(res.getString("OrderDate"));
+			Cp.setInspector(res.getString("Inspector"));
+			Cp.setQuality(res.getString("Quality"));
+			Cp.setMaintainer(res.getString("Maintainer"));
+			
+			Cp.setInventoryPosition(res.getString("InventoryPosition"));
+			Cp.setPresentPosition(res.getString("PresentPosition"));
+			Cp.setUnitPrice(res.getString("UnitPrice"));
+
+			Cp.setOrderQuantity(res.getInt("OrderQuantity"));
+
+			Cp.setHandler(res.getString("Handler"));
+
+			Cp.setExtra(res.getString("extra"));
+			
+			ret.add(Cp);
+		}
+		stm.close();
+	}catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return ret;
+	}
+	public Cs selectEquNumber(int EquNumber) {
+	Cs Cp=null;
+	try {
+			stm = con.createStatement();
+			String sql = String.format("SELECT * FROM cs WHERE EquNumber = %d ", EquNumber);
+			res = stm.executeQuery(sql);
+			if(res.next()) {
+				Cp=new Cs();
+				
+				
+				Cp.setEquNumber(res.getInt("EquNumber"));
+				Cp.setEquQua(res.getString("EquQua"));
+				Cp.setEquName(res.getString("EquName"));
+				Cp.setModelSpe(res.getString("ModelSpe"));
+				Cp.setEquDate(res.getString("EquDate"));
+				
+				Cp.setEquSta(res.getString("EquSta"));
+				Cp.setEquClass(res.getString("EquClass"));
+				Cp.setEquUnit(res.getString("EquUnit"));
+				Cp.setManufacturer(res.getString("Manufacturer"));
+				Cp.setSupplier(res.getString("Supplier"));
+				
+				Cp.setSpecifications(res.getString("Specifications"));
+				Cp.setOrderDate(res.getString("OrderDate"));
+				Cp.setInspector(res.getString("Inspector"));
+				Cp.setQuality(res.getString("Quality"));
+				Cp.setMaintainer(res.getString("Maintainer"));
+				
+				Cp.setInventoryPosition(res.getString("InventoryPosition"));
+				Cp.setPresentPosition(res.getString("PresentPosition"));
+				Cp.setUnitPrice(res.getString("UnitPrice"));
+				
+				Cp.setOrderQuantity(res.getInt("OrderQuantity"));
+	
+				Cp.setHandler(res.getString("Handler"));
+	
+				Cp.setExtra(res.getString("extra"));
+				
+	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			return Cp;
+	}
+	public void updateCsSta(String sta,int id) {
+		try {
+			stm = con.createStatement();
+			String sql = String.format("update cs set Equsta='%s' where EquNumber=%d",sta,id);
+			stm.executeUpdate(sql);
+			stm.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertRetire(Retirement re) {
+		try {
+			stm = con.createStatement();
+			String sql = "INSERT INTO retire(EquNumber,EquName,EquDate, ApplicationDate, Applicant, RetireDate"
+					+ ",Approver,EquUnit,EquClass,InventoryPosition,UnitPrice,Handler,EquSta,Application) VALUES " +
+					String.format("(%d,\"%s\",\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
+							,re.getEquNumber(),re.getEquName(),re.getEquDate(),re.getApplicationDate(),re.getApplicant(),re.getRetireDate()
+							,re.getApprover(),re.getEquUnit(),re.getEquClass(),re.getInventoryPosition(),re.getUnitPrice(),re.getHandler(),re.getEquSta(),re.getApplication());
+			stm.executeUpdate(sql);
+			stm.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Vector<Retirement> selectRetir(String unit,int page) {
+		Vector<Retirement> reh=new Vector<Retirement>();
+		try {
+			stm = con.createStatement();
+			String sql = String.format("SELECT * FROM retire where EquUnit = '%s' limit %d,5",unit,page*5);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				Retirement Re=new Retirement();
+				
+				Re.setEquNumber(res.getInt("EquNumber"));
+				Re.setEquName(res.getString("EquName"));
+				Re.setEquDate(res.getString("EquDate"));
+				Re.setApplication(res.getString("Application"));
+				Re.setApplicant(res.getString("Applicant"));
+				Re.setRetireDate(res.getString("RetireDate"));
+				Re.setApprover(res.getString("Approver"));
+				Re.setEquUnit(res.getString("EquUnit"));
+				Re.setEquClass(res.getString("EquClass"));
+				Re.setInventoryPosition(res.getString("InventoryPosition"));
+				Re.setUnitPrice(res.getString("UnitPrice"));
+				Re.setHandler(res.getString("Handler"));
+				Re.setEquSta(res.getString("EquSta"));
+				Re.setApplicationDate(res.getString("ApplicationDate"));
+				reh.add(Re);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reh;
+	}
+	public void insertLend(Lendin lend) {
+		try {
+			stm = con.createStatement();
+			String sql = "INSERT INTO lendin (LendNumber,Equname, LendUnit, maintext, application,unitlend,Sta,ApplicationDate1,ApplicationDate2,Applicant,Approver,Countdown) VALUES " +
+					String.format("(%d,\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
+							, lend.getLendNumber(),lend.getEquName(), lend.getLendUnit()
+							, lend.getMaintext(), lend.getApplication(),lend.getUnitLend(),lend.getSta()
+							,lend.getApplicationDate1(),lend.getApplicationDate2(),lend.getApplicant(),lend.getApprover(),lend.getCountdown());
+			stm.executeUpdate(sql);
+			stm.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 //	public Vector<User> selectUser(String unit,int type) {
 //		Vector<User> ret=new Vector<User>();
 //		try {
@@ -280,53 +493,7 @@ public class MySQL {
 //			e.printStackTrace();
 //		}
 //	}
-//	public Vector<Cs> selectEqu(int page,String unit,int type) {
-//		Vector<Cs> ret=new Vector<Cs>();
-//		try {
-//			stm = con.createStatement();
-//			String sql="";
-//			if(type==1)
-//				sql = String.format("SELECT * FROM cs limit %d,5",page*5);
-//			else if(type==0)
-//				sql=  String.format("SELECT * FROM cs where EquUnit = '%s' and EquSta regexp '%s' limit %d,5",unit,"绌洪棽",page*5);
-//			res = stm.executeQuery(sql);
-//			while(res.next()) {
-//				Cs Cp=new Cs();
-//				
-//				Cp.setEquNumber(res.getInt("EquNumber"));
-//				Cp.setEquQua(res.getString("EquQua"));
-//				Cp.setEquName(res.getString("EquName"));
-//				Cp.setModelSpe(res.getString("ModelSpe"));
-//				Cp.setEquDate(res.getString("EquDate"));
-//								
-//				Cp.setEquSta(res.getString("EquSta"));
-//				Cp.setEquClass(res.getString("EquClass"));
-//				Cp.setEquUnit(res.getString("EquUnit"));
-//				Cp.setManufacturer(res.getString("Manufacturer"));
-//				Cp.setSupplier(res.getString("Supplier"));
-//				
-//				Cp.setSpecifications(res.getString("Specifications"));
-//				Cp.setOrderDate(res.getString("OrderDate"));
-//				Cp.setInspector(res.getString("Inspector"));
-//				Cp.setQuality(res.getString("Quality"));
-//				Cp.setMaintainer(res.getString("Maintainer"));
-//				
-//				Cp.setInventoryPosition(res.getString("InventoryPosition"));
-//				Cp.setPresentPosition(res.getString("PresentPosition"));
-//				Cp.setUnitPrice(res.getString("UnitPrice"));
-//				
-//				Cp.setOrderQuantity(res.getInt("OrderQuantity"));
-//				Cp.setHandler(res.getString("Handler"));
-//				Cp.setExtra(res.getString("extra"));
-//				
-//				ret.add(Cp);
-//			}
-//			stm.close();
-//		}catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return ret;
-//	}
+
 //	
 //	
 //	
@@ -382,107 +549,9 @@ public class MySQL {
 //		return ret;
 //	}
 //	
-//	public Vector<Cs> selectCsAll(String aim,String unit,int type,int page) {
-//		Vector<Cs> ret=new Vector<Cs>();
-//		try {
-//			stm = con.createStatement();
-//			String sql="";
-//			if(type==0)
-//				sql=String.format("SELECT * FROM cs where concat(EquNumber, EquName, EquQua, ModelSpe, EquDate, EquSta, EquClass, "
-//						+ "EquUnit, Manufacturer, Supplier, Specifications, OrderDate, Inspector, Quality,"
-//						+ "  Maintainer, InventoryPosition, PresentPosition, UnitPrice,"
-//						+ " OrderQuantity, Handler,extra) like  \"%%%s%%\"and  EquUnit ='%s' limit %d,5",aim,unit,page*5);
-//			else if(type==1)
-//				sql=String.format("SELECT * FROM cs where concat(EquNumber, EquName, EquQua, ModelSpe, EquDate, EquSta, EquClass, "
-//						+ "EquUnit, Manufacturer, Supplier, Specifications, OrderDate, Inspector, Quality,"
-//						+ " Maintainer, InventoryPosition, PresentPosition, UnitPrice,"
-//						+ " OrderQuantity, Handler, extra) like  \"%%%s%%\" limit %d,5",aim,page*5);
-//			res = stm.executeQuery(sql);
-//			while(res.next()) {
-//				Cs Cp=new Cs();
-//				
-//				Cp.setEquNumber(res.getInt("EquNumber"));
-//				Cp.setEquQua(res.getString("EquQua"));
-//				Cp.setEquName(res.getString("EquName"));
-//				Cp.setModelSpe(res.getString("ModelSpe"));
-//				Cp.setEquDate(res.getString("EquDate"));
-//				
-//				Cp.setEquSta(res.getString("EquSta"));
-//				Cp.setEquClass(res.getString("EquClass"));
-//				Cp.setEquUnit(res.getString("EquUnit"));
-//				Cp.setManufacturer(res.getString("Manufacturer"));
-//				Cp.setSupplier(res.getString("Supplier"));
-//				
-//				Cp.setSpecifications(res.getString("Specifications"));
-//				Cp.setOrderDate(res.getString("OrderDate"));
-//				Cp.setInspector(res.getString("Inspector"));
-//				Cp.setQuality(res.getString("Quality"));
-//				Cp.setMaintainer(res.getString("Maintainer"));
-//				
-//				Cp.setInventoryPosition(res.getString("InventoryPosition"));
-//				Cp.setPresentPosition(res.getString("PresentPosition"));
-//				Cp.setUnitPrice(res.getString("UnitPrice"));
-//
-//				Cp.setOrderQuantity(res.getInt("OrderQuantity"));
-//
-//				Cp.setHandler(res.getString("Handler"));
-//
-//				Cp.setExtra(res.getString("extra"));
-//				
-//				ret.add(Cp);
-//			}
-//			stm.close();
-//		}catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return ret;
-//	}
+
 //	
-//	public Cs selectEquNumber(int EquNumber) {
-//		Cs Cp=null;
-//		try {
-//			stm = con.createStatement();
-//			String sql = String.format("SELECT * FROM cs WHERE EquNumber = %d ", EquNumber);
-//			res = stm.executeQuery(sql);
-//			if(res.next()) {
-//				Cp=new Cs();
-//				
-//				
-//				Cp.setEquNumber(res.getInt("EquNumber"));
-//				Cp.setEquQua(res.getString("EquQua"));
-//				Cp.setEquName(res.getString("EquName"));
-//				Cp.setModelSpe(res.getString("ModelSpe"));
-//				Cp.setEquDate(res.getString("EquDate"));
-//				
-//				Cp.setEquSta(res.getString("EquSta"));
-//				Cp.setEquClass(res.getString("EquClass"));
-//				Cp.setEquUnit(res.getString("EquUnit"));
-//				Cp.setManufacturer(res.getString("Manufacturer"));
-//				Cp.setSupplier(res.getString("Supplier"));
-//				
-//				Cp.setSpecifications(res.getString("Specifications"));
-//				Cp.setOrderDate(res.getString("OrderDate"));
-//				Cp.setInspector(res.getString("Inspector"));
-//				Cp.setQuality(res.getString("Quality"));
-//				Cp.setMaintainer(res.getString("Maintainer"));
-//				
-//				Cp.setInventoryPosition(res.getString("InventoryPosition"));
-//				Cp.setPresentPosition(res.getString("PresentPosition"));
-//				Cp.setUnitPrice(res.getString("UnitPrice"));
-//				
-//				Cp.setOrderQuantity(res.getInt("OrderQuantity"));
-//
-//				Cp.setHandler(res.getString("Handler"));
-//
-//				Cp.setExtra(res.getString("extra"));
-//				
-//
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return Cp;
-//	}
+
 //	
 //	public int Getlendid() {
 //		int p=0;
@@ -500,47 +569,9 @@ public class MySQL {
 //		return p;
 //	}
 //	
-//	public void updateCsSta(String sta,int id) {
-//		try {
-//			stm = con.createStatement();
-//			String sql = String.format("update cs set Equsta='%s' where EquNumber=%d",sta,id);
-//			stm.executeUpdate(sql);
-//			stm.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
+
 //	
-//	public void insertLend(Lendin lend) {
-//		try {
-//			stm = con.createStatement();
-//			String sql = "INSERT INTO lendin (LendNumber,Equname, LendUnit, maintext, application,unitlend,Sta,ApplicationDate1,ApplicationDate2,Applicant,Approver,Countdown) VALUES " +
-//					String.format("(%d,\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
-//							, lend.getLendNumber(),lend.getEquName(), lend.getLendUnit()
-//							, lend.getMaintext(), lend.getApplication(),lend.getUnitLend(),lend.getSta()
-//							,lend.getApplicationDate1(),lend.getApplicationDate2(),lend.getApplicant(),lend.getApprover(),lend.getCountdown());
-//			stm.executeUpdate(sql);
-//			stm.close();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	public void insertRetire(Retirement re) {
-//		try {
-//			stm = con.createStatement();
-//			String sql = "INSERT INTO retire(EquNumber,EquName,EquDate, ApplicationDate, Applicant, RetireDate"
-//					+ ",Approver,EquUnit,EquClass,InventoryPosition,UnitPrice,Handler,EquSta,Application) VALUES " +
-//					String.format("(%d,\"%s\",\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
-//							,re.getEquNumber(),re.getEquName(),re.getEquDate(),re.getApplicationDate(),re.getApplicant(),re.getRetireDate()
-//							,re.getApprover(),re.getEquUnit(),re.getEquClass(),re.getInventoryPosition(),re.getUnitPrice(),re.getHandler(),re.getEquSta(),re.getApplication());
-//			stm.executeUpdate(sql);
-//			stm.close();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+
 //	
 //	public Vector<Lendin> getlendins(String sta,String unit,int type,int page) {
 //		Vector<Lendin> ret=new Vector<Lendin>();
@@ -577,36 +608,7 @@ public class MySQL {
 //		return ret;
 //	}
 //	
-//	public Vector<Retirement> selectRetir(String unit,int page) {
-//		Vector<Retirement> reh=new Vector<Retirement>();
-//		try {
-//			stm = con.createStatement();
-//			String sql = String.format("SELECT * FROM retire where EquUnit = '%s' limit %d,5",unit,page*5);
-//			res = stm.executeQuery(sql);
-//			while(res.next()) {
-//				Retirement Re=new Retirement();
-//				
-//				Re.setEquNumber(res.getInt("EquNumber"));
-//				Re.setEquName(res.getString("EquName"));
-//				Re.setEquDate(res.getString("EquDate"));
-//				Re.setApplication(res.getString("Application"));
-//				Re.setApplicant(res.getString("Applicant"));
-//				Re.setRetireDate(res.getString("RetireDate"));
-//				Re.setApprover(res.getString("Approver"));
-//				Re.setEquUnit(res.getString("EquUnit"));
-//				Re.setEquClass(res.getString("EquClass"));
-//				Re.setInventoryPosition(res.getString("InventoryPosition"));
-//				Re.setUnitPrice(res.getString("UnitPrice"));
-//				Re.setHandler(res.getString("Handler"));
-//				Re.setEquSta(res.getString("EquSta"));
-//				Re.setApplicationDate(res.getString("ApplicationDate"));
-//				reh.add(Re);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return reh;
-//	}
+
 //	
 //	public Vector<Retirement> selectRetirAdmin(int type,int page,String unit) {
 //		Vector<Retirement> reh=new Vector<Retirement>();
