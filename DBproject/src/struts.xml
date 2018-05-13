@@ -73,8 +73,14 @@
 			<result name="success">/UserLendApplication.jsp</result>
 			<result name="error">/init.jsp</result>
 		</action>
+		
 		<action name="LendManage" class="com.action.LendFunction" method="LendManage">
 			<result name="success">/Home.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
+		
+		<action name="HomeLend" class="com.action.LendFunction" method="HomeLend">
+			<result name="success">/UserLendResult.jsp</result>
 			<result name="error">/404.html</result>
 		</action>
 	</package>

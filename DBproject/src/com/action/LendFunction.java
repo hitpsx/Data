@@ -125,6 +125,14 @@ public class LendFunction {
 		this.maintext=maintext;
 	}
 	
+	public String HomeLend() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		String unit=sql.userUnit(userid);
+		lend=sql.getlendins(unit,page);
+		sql.close();
+		return "success";
+	}
 	public String LendButton() {
 		MySQL sql=new MySQL();
 		user=sql.userInfor(userid);

@@ -228,7 +228,8 @@ public class MySQL {
 		try {
 			stm = con.createStatement();
 			String sql="";
-			sql=  String.format("SELECT * FROM cs where EquUnit = '%s' and EquSta regexp '%s' limit %d,5",unit,"空闲",page*5);
+			sql=  String.format("SELECT * FROM cs where (EquUnit = '%s' or EquUnit = '%s') and EquSta  like  \"%%%s%%\"  limit %d,5",unit,"All","空闲",page*5);
+			System.out.println(sql);
 			res = stm.executeQuery(sql);
 			while(res.next()) {
 				Cs Cp=new Cs();
@@ -275,7 +276,7 @@ public class MySQL {
 		String sql=String.format("SELECT * FROM cs where concat(EquNumber, EquName, EquQua, ModelSpe, EquDate, EquSta, EquClass, "
 					+ "EquUnit, Manufacturer, Supplier, Specifications, OrderDate, Inspector, Quality,"
 					+ "  Maintainer, InventoryPosition, PresentPosition, UnitPrice,"
-					+ " OrderQuantity, Handler,extra) like  \"%%%s%%\"and  EquUnit ='%s' limit %d,5",aim,unit,page*5);
+					+ " OrderQuantity, Handler,extra) like  \"%%%s%%\" and  (EquUnit ='%s' or EquUnit = '%s') limit %d,5",aim,unit,"All",page*5);
 		System.out.println(sql);
 		res = stm.executeQuery(sql);
 		while(res.next()) {
@@ -393,7 +394,7 @@ public class MySQL {
 		Vector<Retirement> reh=new Vector<Retirement>();
 		try {
 			stm = con.createStatement();
-			String sql = String.format("SELECT * FROM retire where EquUnit = '%s' limit %d,5",unit,page*5);
+			String sql = String.format("SELECT * FROM retire where (EquUnit = '%s' or EquUnit = '%s') limit %d,5",unit,"All",page*5);
 			res = stm.executeQuery(sql);
 			while(res.next()) {
 				Retirement Re=new Retirement();
@@ -434,6 +435,33 @@ public class MySQL {
 			e.printStackTrace();
 		}
 	}
+	
+	public Vector<Lendin> getlendins(String unit,int page) {
+	Vector<Lendin> ret=new Vector<Lendin>();
+	try {
+		stm = con.createStatement();
+		String sql = String.format("SELECT * FROM lendin where Sta regexp '%s' and  lendunit='%s' limit %d,5","待",unit,page*5);
+		res = stm.executeQuery(sql);
+		while(res.next()) {
+			Lendin Cp=new Lendin();
+			Cp.setMaintext(res.getString("maintext"));
+			Cp.setEquName(res.getString("Equname"));
+			Cp.setLendNumber(res.getInt("LendNumber"));
+			Cp.setLendUnit(res.getString("LendUnit"));
+			Cp.setUnitLend(res.getString("unitlend"));
+			Cp.setSta(res.getString("Sta"));
+			Cp.setApplicant(res.getString("Applicant"));
+			Cp.setApplicationDate1(res.getString("ApplicationDate1"));
+			Cp.setApplicationDate2(res.getString("ApplicationDate2"));
+			Cp.setApprover(res.getString("Approver"));			
+			Cp.setCountdown(res.getString("Countdown"));
+			ret.add(Cp);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return ret;
+}
 
 //	public Vector<User> selectUser(String unit,int type) {
 //		Vector<User> ret=new Vector<User>();
@@ -462,7 +490,7 @@ public class MySQL {
 //			
 //				ret.add(user);
 //			}
-//			stm.close();
+//			stm.close();3
 //		  }catch (SQLException e) {
 //				e.printStackTrace();
 //			}
@@ -573,40 +601,7 @@ public class MySQL {
 //	
 
 //	
-//	public Vector<Lendin> getlendins(String sta,String unit,int type,int page) {
-//		Vector<Lendin> ret=new Vector<Lendin>();
-//		try {
-//			stm = con.createStatement();
-//			String sql="";
-//			if(type==0) //鏌ヨ鏈崟浣嶇洰鍓嶇殑鍊熷嚭鐢宠
-//				sql = String.format("SELECT * FROM lendin where Sta regexp '%s' and  lendunit='%s' limit %d,5","鍊焲鏈�",unit,page*5);
-//			else if(type==1) //鏌ヨ鎵�鏈夋湭瀹℃壒鐨勫�熷嚭鐢宠
-//				sql = String.format("SELECT * FROM lendin limit %d,5",page*5);
-//			else if (type==2)//鏌ヨ宸插�熷埌鐨勮澶�
-//				sql = String.format("SELECT * FROM lendin where Sta like \"%%%s%%\" and unitlend='%s' limit %d,5",sta,unit,page*5);
-//			else if (type==3)//鏌ヨ鎵�鏈夊凡缁忚浆鍊熺殑璁惧
-//				sql = String.format("SELECT * FROM lendin where Sta like \"%%%s%%\" limit %d,5","杞��",page*5);
-//			res = stm.executeQuery(sql);
-//			while(res.next()) {
-//				Lendin Cp=new Lendin();
-//				Cp.setMaintext(res.getString("maintext"));
-//				Cp.setEquName(res.getString("Equname"));
-//				Cp.setLendNumber(res.getInt("LendNumber"));
-//				Cp.setLendUnit(res.getString("LendUnit"));
-//				Cp.setUnitLend(res.getString("unitlend"));
-//				Cp.setSta(res.getString("Sta"));
-//				Cp.setApplicant(res.getString("Applicant"));
-//				Cp.setApplicationDate1(res.getString("ApplicationDate1"));
-//				Cp.setApplicationDate2(res.getString("ApplicationDate2"));
-//				Cp.setApprover(res.getString("Approver"));			
-//				Cp.setCountdown(res.getString("Countdown"));
-//				ret.add(Cp);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return ret;
-//	}
+
 //	
 
 //	
