@@ -17,6 +17,7 @@ public class MySQL {
 	*/
 	private Connection con = null;
 	private Statement stm = null;
+	private Statement stm2 =null;
 	private ResultSet res = null;
 	
 	public MySQL() {
@@ -437,74 +438,102 @@ public class MySQL {
 	}
 	
 	public Vector<Lendin> getlendins(String unit,int page) {
-	Vector<Lendin> ret=new Vector<Lendin>();
-	try {
-		stm = con.createStatement();
-		String sql = String.format("SELECT * FROM lendin where Sta regexp '%s' and  lendunit='%s' limit %d,5","待",unit,page*5);
-		res = stm.executeQuery(sql);
-		while(res.next()) {
-			Lendin Cp=new Lendin();
-			Cp.setMaintext(res.getString("maintext"));
-			Cp.setEquName(res.getString("Equname"));
-			Cp.setLendNumber(res.getInt("LendNumber"));
-			Cp.setLendUnit(res.getString("LendUnit"));
-			Cp.setUnitLend(res.getString("unitlend"));
-			Cp.setSta(res.getString("Sta"));
-			Cp.setApplicant(res.getString("Applicant"));
-			Cp.setApplicationDate1(res.getString("ApplicationDate1"));
-			Cp.setApplicationDate2(res.getString("ApplicationDate2"));
-			Cp.setApprover(res.getString("Approver"));			
-			Cp.setCountdown(res.getString("Countdown"));
-			ret.add(Cp);
+		Vector<Lendin> ret=new Vector<Lendin>();
+		try {
+			stm = con.createStatement();
+			String sql = String.format("SELECT * FROM lendin where Sta regexp '%s' and  lendunit='%s' limit %d,5","待",unit,page*5);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				Lendin Cp=new Lendin();
+				Cp.setMaintext(res.getString("maintext"));
+				Cp.setEquName(res.getString("Equname"));
+				Cp.setLendNumber(res.getInt("LendNumber"));
+				Cp.setLendUnit(res.getString("LendUnit"));
+				Cp.setUnitLend(res.getString("unitlend"));
+				Cp.setSta(res.getString("Sta"));
+				Cp.setApplicant(res.getString("Applicant"));
+				Cp.setApplicationDate1(res.getString("ApplicationDate1"));
+				Cp.setApplicationDate2(res.getString("ApplicationDate2"));
+				Cp.setApprover(res.getString("Approver"));			
+				Cp.setCountdown(res.getString("Countdown"));
+				ret.add(Cp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	} catch (SQLException e) {
-		e.printStackTrace();
+		return ret;
 	}
-	return ret;
-}
+	
+	public int[] getGraph() {
+		int i=0;
+		int []tmp = new int[5];
+		try {
+				stm = con.createStatement();
+				String sql = String.format("select equclass ,count(*) num from cs group by equclass");
+				res = stm.executeQuery(sql);
+				while(res.next()) {
+					tmp[i++]=res.getInt("num");
+				}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tmp;	
+	}
 
-//	public Vector<User> selectUser(String unit,int type) {
-//		Vector<User> ret=new Vector<User>();
-//		try {
-//			stm = con.createStatement();						
-//			String sql="";
-//			if(type==0) //閮ㄩ棬绠＄悊鍛�
-//				sql = String.format("select * from user where unit = '%s' and type ='0'",unit);
-//			else if (type==1) //瓒呯骇绠＄悊鍛�
-//				sql = String.format("select * from  user");
-//			res = stm.executeQuery(sql);
-//			while(res.next()) {
-//				
-//				User user = new User();
-//				user.setUsername(res.getString("Username"));
-//				user.setUserid(res.getInt("Userid"));
-//				user.setSex(res.getString("Sex"));
-//				user.setUnit(res.getString("Unit"));
-//				user.setEmail(res.getString("Email"));
-//				user.setPassword(res.getString("Password"));
-//				user.setType(res.getString("type"));
-//				user.setPicture(res.getString("Picture"));
-//				user.setIDcard(res.getString("IDcard"));
-//				user.setEntryTime(res.getString("EntryTime"));
-//				user.setPhone(res.getString("phone"));
-//			
-//				ret.add(user);
-//			}
-//			stm.close();3
-//		  }catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		return ret;
-//	}
-//	public void DeleteUser(int userid) {
-//		try {
-//			stm = con.createStatement();						
-//			String sql= String.format("delete from user where userid=%d",userid);
-//			stm.executeUpdate(sql);
-//		  }catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//	}
+	public Vector<User> selectUser(String unit) {
+		Vector<User> ret=new Vector<User>();
+		try {
+			stm = con.createStatement();						
+			String sql=String.format("select * from user where unit = '%s'",unit);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				
+				User user = new User();
+				user.setUsername(res.getString("Username"));
+				user.setUserid(res.getInt("Userid"));
+				user.setSex(res.getString("Sex"));
+				user.setUnit(res.getString("Unit"));
+				user.setEmail(res.getString("Email"));
+				user.setPassword(res.getString("Password"));
+				user.setIDcard(res.getString("IDcard"));
+				user.setPhone(res.getString("phone"));
+			
+				ret.add(user);
+			}
+			stm.close();
+		  }catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return ret;
+	}
+
+	public void DeleteUser(int userid) {
+		
+		
+		try {
+			con.setAutoCommit(false);
+			stm = con.createStatement();
+			stm2= con.createStatement();
+			String sql= String.format("delete from education where educationid = (select educationid from user where userid=%d)",userid);
+			stm.executeUpdate(sql);
+			sql=String.format("delete from user where userid=%d",userid);
+			stm2.executeUpdate(sql);
+			con.commit();
+		  }catch (SQLException e) {
+				e.printStackTrace();
+			   try {
+				   con.rollback();
+			   }catch(SQLException eL) {
+				   eL.printStackTrace();
+			   }
+			}
+		try {
+			con.setAutoCommit(true);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 //	
 //	public void InserRepair(Repair Re) {

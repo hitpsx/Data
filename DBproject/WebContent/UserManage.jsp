@@ -1,16 +1,14 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Lend</title>
+<title>User Management</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords"
-	content="Minimal Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!--<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />-->
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <link href="css/font-awesome.css" rel="stylesheet">
@@ -80,50 +78,6 @@ table.hovertable td {
 	width: 75px;
 	height: 23px
 }
-
-.pagination_1 {
-	display: inline-block;
-	padding-left: 18%;
-	margin: 20px 0;
-	border-radius: 4px;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-.pagination_1>li {
-	display: inline;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
-}
-
-.pagination_1>li>a, .pagination_1>li>span {
-	position: relative;
-	float: left;
-	padding: 6px 12px;
-	margin-left: -1px;
-	line-height: 1.42857143;
-	color: #337ab7;
-	text-decoration: none;
-	background-color: #fff;
-	border: 1px solid #ddd;
-}
 </style>
 <!-- Custom and plugin javascript -->
 <link href="css/custom.css" rel="stylesheet">
@@ -136,23 +90,14 @@ li {
 			if (!screenfull.enabled) {
 				return false;
 			}
-
-			
-
 			$('#toggle').click(function () {
 				screenfull.toggle($('#container')[0]);
 			});
-			
-
-			
+			$( "#datepicker" ).datepicker();
 		});
 		</script>
 </head>
 <body>
-	<%
-     java.util.Date date=new java.util.Date(12,333,555,0,9);
-     pageContext.setAttribute("date",date);
-%>
 	<div id="wrapper">
 		<!----->
 		<nav class="navbar-default navbar-static-top" role="navigation">
@@ -209,7 +154,7 @@ li {
 					<li class="dropdown"><a href="#"
 						class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span
 							class=" name-caret"><s:property value="user.username" /><i
-								class="caret"></i></span><img src="images/wo.jpg"></a>
+								class="caret"></i></span><img src="<s:property value="user.picture"/>"></a>
 						<ul class="dropdown-menu " role="menu">
 							<li><s:a action="Profile">
 									<s:param name="userid">
@@ -395,13 +340,23 @@ li {
 								<span class="nav-label">Select</span>
 							</s:a></li>
 
-						<li><s:a action="SelectHome">
-								<s:param name="userid">
-									<s:property value="user.userid" />
-								</s:param>
-								<i class="fa fa-picture-o nav_icon"></i>
-								<span class="nav-label">EquManage</span>
-							</s:a></li>
+						<li><a href="#" class=" hvr-bounce-to-right"><i
+								class="fa fa-list nav_icon"></i> <span class="nav-label">Management</span><span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><s:a action="SelectHome">
+										<s:param name="userid">
+											<s:property value="user.userid" />
+										</s:param>
+										<i class="fa fa-picture-o nav_icon"></i>
+										<span class="nav-label">Find</span>
+									</s:a></li>
+								<li><a
+									href="HomeRepair?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
+							</ul></li>
+
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Lend
 									Management</span><span class="fa arrow"></span></a>
@@ -449,58 +404,44 @@ li {
 				<div class="banner">
 					<h2>
 						<a href="Home?userid=<s:property value="user.userid"/>">Home</a> <i
-							class="fa fa-angle-right"></i> <span>Lend information</span>
+							class="fa fa-angle-right"></i> <span>User Management</span>
 					</h2>
 				</div>
 				<!--//banner-->
 				<!--faq-->
 				<div class="blank">
-
-
 					<div class="blank-page">
 						<form class="form" action="" method="post">
 							<input type="hidden" name=userid
 								value=<s:property value="user.userid"/> />
+
 							<table class="hovertable">
 								<tr>
-									<th>EquID</th>
-									<th>Title</th>
-									<th>EquName</th>
-									<th>UnitLend</th>
-									<th>Applicant</th>
-									<th>ApplicationDate1</th>
-									<th>ApplicationDate2</th>
-									<th>Sta</th>
-									<th>Countdown</th>
+									<th>username</th>
+									<th>userid</th>
+									<th>email</th>
+									<th>unit</th>
+									<th>sex</th>
+									<th>IDcard</th>
+									<th>phone</th>
+									<th>Manage</th>
 								</tr>
-								<s:iterator value="lend" var="Le">
+								<s:iterator value="Us" var="people">
 									<tr onmouseover="this.style.backgroundColor='#fdf5e6';"
 										onmouseout="this.style.backgroundColor='#ffffff';">
-										<td><s:property value="#Le.LendNumber" /></td>
-										<td><s:property value="#Le.maintext" /></td>
+										<td><s:property value="#people.username" /></td>
+										<td><s:property value="#people.userid" /></td>
+										<td><s:property value="#people.email" /></td>
+										<td><s:property value="#people.unit" /></td>
+										<td><s:property value="#people.sex" /></td>
+										<td><s:property value="#people.IDcard" />
+										<td><s:property value="#people.phone" />
 										<td><a
-											href="EquInformation?userid=<s:property value="user.userid"/>&EquNumber=<s:property value="#Le.LendNumber"/>"><s:property
-													value="#Le.EquName" /></a></td>
-										<td><s:property value="#Le.UnitLend" /></td>
-										<td><s:property value="#Le.Applicant" /></td>
-										<td><s:property value="#Le.ApplicationDate1" /></td>
-										<td><s:property value="#Le.ApplicationDate2" /></td>
-										<td><s:property value="#Le.Sta" /></td>
-										<td><s:property value="#Le.Countdown" /></td>
+											href="DeleteUser?deleteuser=<s:property value="#people.userid"/>&userid=<s:property value="user.userid"/>">Delete</a></td>
 									</tr>
 								</s:iterator>
 							</table>
 						</form>
-						<ul class="pagination_1">
-							<li><a
-								href="HomeLend?userid=<s:property value="user.userid"/>&page=0">&laquo;</a></li>
-							<% for(int i=0;i<10;i++){ %>
-							<li><a
-								href="HomeLend?userid=<s:property value="user.userid"/>&page=<%=i%>"><%=i%></a></li>
-							<%}%>
-							<li><a
-								href="HomeLend?userid=<s:property value="user.userid"/>&page=9">&raquo;</a></li>
-						</ul>
 					</div>
 				</div>
 
@@ -513,5 +454,6 @@ li {
 				<script src="js/scripts.js"></script>
 				<!--//scrolling js-->
 </body>
+
 </html>
 

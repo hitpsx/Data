@@ -102,7 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<li class="dropdown"><a href="#"
 					class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span
 						class=" name-caret"><s:property value="user.username" /><i
-							class="caret"></i></span><img src="<s:property value="user.picture"/>"></a>
+							class="caret"></i></span><img src="images/wo.jpg"></a>
 					<ul class="dropdown-menu " role="menu">
 						<li><a href="profile.html"><i class="fa fa-"></i>Edit
 								Profile</a></li>

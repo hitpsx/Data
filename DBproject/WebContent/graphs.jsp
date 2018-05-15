@@ -1,9 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Repaire Application</title>
+<title>Graph</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -12,82 +13,68 @@
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <link href="css/font-awesome.css" rel="stylesheet">
 <script src="js/jquery.min.js"> </script>
-<script src="js/bootstrap.min.js"> </script>
-<link rel="stylesheet"
-	href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<!-- Mainly scripts -->
-<script src="js/jquery.metisMenu.js"></script>
-<script src="js/jquery.slimscroll.min.js"></script>
-<!-- Custom and plugin javascript -->
-<link href="css/custom.css" rel="stylesheet">
-<script src="js/custom.js"></script>
-<script src="js/screenfull.js"></script>
-<script>
-		$(function () {
-			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
+<script src="js/Chart.js"></script>
+<style type="text/css">
+#os-lbl {
+	border-left: #666666 solid 1em;
+	padding-left: .5em;
+	font-size: 1em;
+	color: #777F8C;
+}
 
-			if (!screenfull.enabled) {
-				return false;
-			}
+#os-Other-lbl {
+	border-left: #1abc9c solid 1em;
+	padding-left: .5em;
+	font-size: 1em;
+	color: #777F8C;
+}
 
-			
+#os-Win-lbl {
+	border-left: #d95459 solid 1em;
+	padding-left: .5em;
+	font-size: 1em;
+	color: #777F8C;
+}
 
-			$('#toggle').click(function () {
-				screenfull.toggle($('#container')[0]);
-			});
-			
-			$( "#datepicker" ).datepicker();
-			$( "#datepicker1" ).datepicker();
-			
-		});
-		</script>
+#os-Mac-lbl {
+	border-left: #3BB2D0 solid 1em;
+	padding-left: .5em;
+	font-size: 1em;
+	color: #777F8C;
+}
 
-<!----->
-
+#os-server-lbl {
+	border-left: #FF8C00 solid 1em;
+	padding-left: .5em;
+	font-size: 1em;
+	color: #777F8C;
+}
+</style>
 </head>
 <body>
 	<div id="wrapper">
 		<!----->
 		<nav class="navbar-default navbar-static-top" role="navigation">
 		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
 			<h1>
-				<a class="navbar-brand"
-					href="Home?userid=<s:property value="user.userid"/>">Home</a>
+				<a class="navbar-brand" href="Home?userid=<s:property value="user.userid"/>">Home</a>
 			</h1>
 		</div>
 		<div class=" border-bottom">
 			<div class="full-left">
-				<script type="text/javascript">    
-               function startTime(){  
-					  var today=new Date()  
-					  var week=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
-					  var monthh=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
-					  var month=today.getMonth()+1  
-					  var date=today.getDate()  
-					  var day=today.getDay()  
-					  var h=today.getHours()  
-					  var m=today.getMinutes()  
-					  var s=today.getSeconds()  
-					  // add a zero in front of numbers<10  
-					  h=checkTime(h)  
-					  m=checkTime(m)  
-					  s=checkTime(s)  
-					  document.getElementById('time').innerHTML=monthh[month-1]+" "+date+"th "+week[day]+"  "+h+":"+m+":"+s+" "  
-					  t=setTimeout('startTime()',500)  
-					 }  
-					    
-					 function checkTime(i){    
-					 if (i<10)     
-					   {i="0" + i}    
-					   return i    
-					 }    
-					</script>
+				<section class="full-top">
+				<button id="toggle">
+					<i class="fa fa-arrows-alt"></i>
+				</button>
+				</section>
 
-				<body onload="startTime()">
-
-					<span id="time" class="nav-label"></span>
-					<div class="clearfix"></div>
+				<div class="clearfix"></div>
 			</div>
 
 
@@ -96,14 +83,15 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="drop-men">
 				<ul class=" nav_1">
+
 					<li class="dropdown"><a href="#"
 						class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span
-							class=" name-caret"><s:property value="user.username" /><i
-								class="caret"></i></span><img src="<s:property value="user.picture"/>"></a>
+							class=" name-caret">Sam<i class="caret"></i></span>
 						<ul class="dropdown-menu " role="menu">
-							<li><a href="profile.html"><i class="fa fa-user"></i>Edit
-									Profile</a></li>
+							<li><a href="profile.html"><i class="fa fa-user"></i>Edit Profile</a></li>
+							<li><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox</a></li>
 							<li><a href="calendar.html"><i class="fa fa-calendar"></i>Calender</a></li>
+							<li><a href="inbox.html"><i class="fa fa-clipboard"></i>Tasks</a></li>
 						</ul></li>
 
 				</ul>
@@ -114,7 +102,6 @@
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
-
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-indent nav_icon"></i> <span class="nav-label">Equipment
 									Class</span><span class="fa arrow"></span></a>
@@ -298,6 +285,10 @@
 									href="HomeRepair?userid=<s:property value="user.userid"/>"
 									class=" hvr-bounce-to-right"><i
 										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
+								<li><a
+									href="HomeAdd?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-check-square-o nav_icon"></i>Add</a></li>
 							</ul></li>
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Lend
@@ -318,7 +309,10 @@
 								class="fa fa-th nav_icon"></i> <span class="nav-label">Retirement</span></a>
 						</li>
 
-
+						<li><a href="graph?userid=<s:property value="user.userid"/>"
+							class=" hvr-bounce-to-right"> <i
+								class="fa fa-area-chart nav_icon"></i>Graphs
+						</a></li>
 
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-cog nav_icon"></i> <span class="nav-label">Settings</span><span
@@ -328,7 +322,15 @@
 										class="fa fa-sign-in nav_icon"></i>Signin</a></li>
 								<li><a href="registration.html"
 									class=" hvr-bounce-to-right"><i
-										class="fa fa-sign-in nav_icon"></i>Signup</a></li>
+										class="fa fa-sign-in nav_icon"></i>Singup</a></li>
+								<li><a
+									href="AdminInvite?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-sign-in nav_icon"></i>Invite Manage</a></li>
+								<li><a
+									href="UserManage?userid=<s:property value="user.userid"/>"
+									class=" hvr-bounce-to-right"><i
+										class="fa fa-sign-in nav_icon"></i>User Manage</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -341,146 +343,112 @@
 				<div class="banner">
 					<h2>
 						<a href="Home?userid=<s:property value="user.userid"/>">Home</a> <i
-							class="fa fa-angle-right"></i> <span>Repaire Application</span>
+							class="fa fa-angle-right"></i> <span>Graphs</span>
 					</h2>
 				</div>
 				<!--//banner-->
-				<!--grid-->
-				<div class="grid-form">
-					<!----->
 
-					<!---->
-					<div class="grid-form1">
-						<div class="tab-content">
-							<div class="tab-pane active" id="horizontal-form">
-								<form class="form-horizontal" action="RepairManage"
-									method="post">
-									<input type="hidden" name=userid
-										value=<s:property value="user.userid"/> /> <input
-										type="hidden" name=EquName
-										value=<s:property value="Cp.EquName"/> /> <input
-										type="hidden" name=EquNumber
-										value=<s:property value="Cp.EquNumber"/> />
-									<div class="form-group">
-										<label for="disabledinput" class="col-sm-2 control-label">Device
-											ID</label>
-										<div class="col-sm-8">
-											<input disabled="" type="text" class="form-control1"
-												id="disabledinput"
-												value="<s:property value="Cp.EquNumber"/>"
-												readonly="readonly">
-										</div>
+				<!--//grid-->
+				<div class="graph">
+					<div class="col-md-12 graph-box1 clearfix">
+						<div class="grid-1">
+							<h4>Total Spend</h4>
+							<div class="grid-graph">
+								<div class="grid-graph1">
+									<div id="os-Win-lbl">
+										Micro-Computer <span>22</span>
 									</div>
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Device
-											name</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												value="<s:property value="Cp.EquName"/>" readonly="readonly">
-										</div>
+									<div id="os-Mac-lbl">
+										ORouter <span>11</span>
 									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Title</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												name="title" placeholder="Main idea">
-										</div>
+									<div id="os-Other-lbl">
+										Switch <span>8</span>
 									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Applicant</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												name="Applicant" placeholder="Who made the application">
-										</div>
+									<div id="os-server-lbl">
+										Server <span>1</span>
 									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Applicatdate</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="datepicker"
-												name="ApplicationDate">
-										</div>
+									<div id="os-lbl" class="os-lbl">
+										Office-Equipment <span>10</span>
 									</div>
-
-
-									<div class="form-group">
-										<label for="txtarea1" class="col-sm-2 control-label">Application</label>
-										<div class="col-sm-8">
-											<textarea name="Application" id="txtarea1" cols="50" rows="4"
-												class="form-control1"></textarea>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Phone</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												name="Phone" placeholder="Tel">
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Class</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												name="EquClass" value="<s:property value="Cp.EquClass"/>"
-												readonly="readonly">
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Unit</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												name="EquUnit" value="<s:property value="Cp.EquUnit"/>"
-												readonly="readonly">
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="focusedinput" class="col-sm-2 control-label">Location</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control1" id="focusedinput"
-												name="location" placeholder="Locationl">
-										</div>
-									</div>
-									<div class="panel-footer">
-
-										<div class="row">
-											<div class="col-sm-8 col-sm-offset-2">
-												<button class="btn-primary btn">Ok</button>
-												<s:a href="HomeRepair?userid=%{user.id}">
-													<input type="button" value="Cancel" class="btn-default btn">
-												</s:a>
-												<s:a
-													href="RetirButton?userid=%{user.id}&EquNumber=%{EquNumber}">
-													<input type="button" value="reset" class="btn-inverse btn">
-												</s:a>
-
-											</div>
-										</div>
-									</div>
-								</form>
+								</div>
 							</div>
+							<div class="grid-2">
+								<canvas id="pie" height="315" width="470"
+									style="width: 470px; height: 315px;"></canvas>
+								<script>
+									var pieData = [
+										{
+											value: 42.3,
+											color:"#D95459"
+										},
+										{
+											value : 15.3,
+											color : "#1ABC9C"
+										},
+										{
+											value : 21,
+											color : "#3BB2D0"
+										},
+										{
+											value : 1.9,
+											color : "#FF8C00"
+										},
+										{
+											value : 19.2,
+											color : "#666666"
+										}
+									
+									];
+									new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
+								</script>
+							</div>
+							<div class="clearfix"></div>
 						</div>
 
-						<div class="bs-example" data-example-id="form-validation-states">
-
-
-
-							</form>
-						</div>
 					</div>
-					<!--//grid-->
-					<!---->
-					<!--scrolling js-->
-					<script src="js/jquery.nicescroll.js"></script>
-					<script src="js/scripts.js"></script>
-					<!--//scrolling js-->
-					<!---->
+				</div>
+				<!---->
+
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<!---->
+
+		<script src="js/bootstrap.min.js"> </script>
+
+
+		<!-- Mainly scripts -->
+		<script src="js/jquery.metisMenu.js"></script>
+		<script src="js/jquery.slimscroll.min.js"></script>
+		<!-- Custom and plugin javascript -->
+		<link href="css/custom.css" rel="stylesheet">
+		<script src="js/custom.js"></script>
+		<script src="js/screenfull.js"></script>
+		<script>
+		$(function () {
+			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
+
+			if (!screenfull.enabled) {
+				return false;
+			}
+
+			
+
+			$('#toggle').click(function () {
+				screenfull.toggle($('#container')[0]);
+			});
+			
+
+			
+		});
+		</script>
+
+		<!----->
+
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
 </body>
 </html>
-
-

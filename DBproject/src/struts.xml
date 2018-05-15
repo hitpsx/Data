@@ -4,7 +4,7 @@
 <struts>
 	<include file="struts-default.xml" />
 	<package name="com.action" extends="struts-default">
-		<!-- 用户登录以及注册 -->
+		<!-- 用户方面 -->
 		<action name="UserLogin" class="com.action.UserFunction" method="UserLogin">
 			<result name="success">/Home.jsp</result>
 			<result name="error">/LoginError.html</result>
@@ -40,6 +40,16 @@
 			<result name="success">/workLife.jsp</result>
 			<result name="error">/404.html</result>
 		</action>
+		
+		<action name="UserManage" class="com.action.UserFunction" method="UserManage">
+			<result name="success">/UserManage.jsp</result>
+			<result name="error">/404.html</result> 
+		</action>
+		
+		<action name="DeleteUser" class="com.action.UserFunction" method="DeleteUser">
+			<result name="success">/UserManage.jsp</result>
+			<result name="error">/404.html</result>
+		</action>
 				
 		<!-- 用户查询 -->	
 		<action name="SelectHome" class="com.action.selectFunction" method="SelectHome">
@@ -50,6 +60,11 @@
 		<action name="CsSelect" class="com.action.selectFunction" method="CsSelect">
 			<result name="success">/SearchResult.jsp</result>
 			<result name="error">/init.jsp</result>
+		</action>
+		
+		<action name="graph" class="com.action.selectFunction" method="graph">
+			<result name="success">/text.jsp</result>
+			<result name="error">/404.html</result>
 		</action>
 		
 		<!--用户报废 -->

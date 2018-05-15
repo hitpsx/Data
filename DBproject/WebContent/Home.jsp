@@ -102,7 +102,7 @@
 					<li class="dropdown"><a href="#"
 						class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span
 							class=" name-caret"><s:property value="user.username" /><i
-								class="caret"></i></span><img src="<s:property value="user.picture"/>"></a>
+								class="caret"></i></span><img src="images/wo.jpg"></a></a>
 						<ul class="dropdown-menu " role="menu">
 							<li><s:a action="Profile">
 									<s:param name="userid">
@@ -292,18 +292,22 @@
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Management</span><span
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><s:a action="SelectHome">
+								<li><s:a action="UserManage">
 										<s:param name="userid">
 											<s:property value="user.userid" />
 										</s:param>
 										<i class="fa fa-picture-o nav_icon"></i>
-										<span class="nav-label">Find</span>
+										<span class="nav-label">Delete</span>
 									</s:a></li>
 								<li><a
 									href="HomeRepair?userid=<s:property value="user.userid"/>"
 									class=" hvr-bounce-to-right"><i
 										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
 							</ul></li>
+						<li><a href="graph?userid=<s:property value="user.userid"/>"
+							class=" hvr-bounce-to-right"> <i
+								class="fa fa-area-chart nav_icon"></i>Graphs
+						</a></li>
 						<li><a href="#" class=" hvr-bounce-to-right"><i
 								class="fa fa-list nav_icon"></i> <span class="nav-label">Lend
 									Management</span><span class="fa arrow"></span></a>

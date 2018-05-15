@@ -12,7 +12,7 @@ public class selectFunction {
 	private User user;
 	private int page;
 	private String Aim;
-	
+	private graph gh;
 	
 	public String getAim() {
 		return Aim;
@@ -46,6 +46,12 @@ public class selectFunction {
 	public void setCp(Vector<Cs> Cp) {
 		this.Cp = Cp;
 	}
+	public graph getGh() {
+		return gh;
+	}
+	public void setGh(graph gh) {
+		this.gh = gh;
+	}
 	public String  SelectHome() {
 		MySQL sql=new MySQL();
 		user=sql.userInfor(userid);
@@ -64,5 +70,15 @@ public class selectFunction {
 		sql.close();
 		return "success";
 	}
+	
+	public String graph() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		int []tmp=sql.getGraph();
+		gh=new graph();
+		gh.set(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4]);
+		return "success";
+	}
+
 
 }

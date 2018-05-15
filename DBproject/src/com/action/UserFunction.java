@@ -260,49 +260,22 @@ public class UserFunction {
 		work=sql.userSelectWork(userid);
 		return "success";
 	}
-//	public String UserManage() {
-//		MySQL sql=new MySQL();
-//		user=sql.userInfor(userid);
-//		if(user.getType().equals("1"))
-//		{
-//			Us=sql.selectUser(user.getUnit(),0);
-//			sql.close();
-//			return "success";
-//		}
-//		else if(user.getType().equals("2"))
-//		{
-//			Us=sql.selectUser("",1);
-//			sql.close();
-//			return "success";
-//		}
-//		
-//		return "error";
-//	}
-//	public String DeleteUser() {
-//		MySQL sql=new MySQL();
-//		user=sql.userInfor(userid);
-//		User user2=sql.userInfor(deleteuser);
-//		if(user2.getType().equals("0") && user.getType().equals("1"))
-//		{
-//	        sql.DeleteUser(user2.getUserid());
-//	        Us=sql.selectUser(user.getUnit(), 0);
-//	        return "success";
-//		}
-//		else if(user.getType().equals("2"))
-//		{
-//			sql.DeleteUser(user2.getUserid());
-//			Us=sql.selectUser("", 1);
-//	        return "success";
-//		}
-//		userid=user.getUserid();
-//		return "success";
-//	}
-//	
-//	public String graph() {
-//		MySQL sql=new MySQL();
-//		user=sql.userInfor(userid);
-//		return "success";
-//	}
+	public String UserManage() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		Us=sql.selectUser(user.getUnit());
+		sql.close();
+		return "success";
+	}
+	
+	public String DeleteUser() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		User user2=sql.userInfor(deleteuser);
+		sql.DeleteUser(deleteuser);
+		Us=sql.selectUser(user.getUnit());
+	    return "success";
+	}
 
 
 }
