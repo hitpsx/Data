@@ -67,6 +67,11 @@
 			<result name="error">/404.html</result>
 		</action>
 		
+		<action name="ViewSelect" class="com.action.selectFunction" method="ViewSelect">
+			<result name="success">/ViewInformation.jsp</result>
+			<result name="error">/init.jsp</result>
+		</action>
+		
 		<!--用户报废 -->
 		<action name="RetirButton" class="com.action.RetireFunction" method="RetirButton">
 			<result name="success">/UserRetireApplication.jsp</result>

@@ -300,9 +300,9 @@
 										<span class="nav-label">Delete</span>
 									</s:a></li>
 								<li><a
-									href="HomeRepair?userid=<s:property value="user.userid"/>"
+									href="ViewSelect?userid=<s:property value="user.userid"/>"
 									class=" hvr-bounce-to-right"><i
-										class="fa fa-check-square-o nav_icon"></i>Repair</a></li>
+										class="fa fa-check-square-o nav_icon"></i>View Select</a></li>
 							</ul></li>
 						<li><a href="graph?userid=<s:property value="user.userid"/>"
 							class=" hvr-bounce-to-right"> <i

@@ -25,6 +25,7 @@ public class Cs {
     private int OrderQuantity;
     private String Handler;
     private String extra;
+    private int labid;
 
     public String getExtra() {
         return extra;
@@ -199,6 +200,13 @@ public class Cs {
         this.Handler = Handler;
     }
 
+	public int getLabid() {
+		return labid;
+	}
+
+	public void setLabid(int labid) {
+		this.labid = labid;
+	}
 
 
     public void set(int EquNumber, String EquName, String EquQua,
@@ -207,7 +215,7 @@ public class Cs {
         String Specifications, String OrderDate, String Inspector,
         String Quality,String Maintainer,
         String InventoryPosition, String PresentPosition, String UnitPrice,
-        int OrderQuantity,String Handler,String extra) {
+        int OrderQuantity,String Handler,String extra,int labid) {
         this.EquNumber = EquNumber;
         this.EquName = EquName;
         this.EquQua = EquQua;
@@ -229,5 +237,7 @@ public class Cs {
         this.OrderQuantity = OrderQuantity;
         this.Handler = Handler;
         this.extra=extra;
+        this.labid=labid;
     }
+
 }

@@ -449,7 +449,7 @@ li {
 				<div class="banner">
 					<h2>
 						<a href="Home?userid=<s:property value="user.userid"/>">Home</a> <i
-							class="fa fa-angle-right"></i> <span>Lend information</span>
+							class="fa fa-angle-right"></i> <span>information</span>
 					</h2>
 				</div>
 				<!--//banner-->

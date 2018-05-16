@@ -86,6 +86,7 @@ public class RetireFunction {
 		
 	}
 	
+	
 	public String RetirButton() {
 		MySQL sql=new MySQL();
 		user=sql.userInfor(userid);

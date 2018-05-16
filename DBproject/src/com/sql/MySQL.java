@@ -64,7 +64,7 @@ public class MySQL {
 	public void insertUser(User user) {
 		try {
 			stm = con.createStatement();
-			String sql = "INSERT INTO user (username, unit,password, sex, unitid, email, userid,IDcard,phone,educationID,workID,inviteID) VALUES " +
+			String sql = "INSERT INTO user (username, unit,password, sex, labid, email, userid,IDcard,phone,educationID,workID,inviteID) VALUES " +
 					String.format("(\"%s\",'%s', \"%s\",\"%s\", %d,\"%s\",%d,\"%s\",\"%s\",%d,%d,%d);",
 							user.getUsername(), user.getUnit(),user.getPassword(), user.getSex(), user.getUnitID(), 
 							user.getEmail(),user.getUserid(), user.getIDcard(),user.getPhone(),
@@ -93,7 +93,7 @@ public class MySQL {
 				user.setSex(res.getString("Sex"));
 				user.setPhone(res.getString("Phone"));
 				user.setUnit(res.getString("Unit"));
-				user.setUnitID(res.getInt("UnitID"));
+				user.setUnitID(res.getInt("Labid"));
 				user.setEducationID(res.getInt("EducationID"));
 				user.setWorkID(res.getInt("WorkID"));
 				user.setEmail(res.getString("Email"));
@@ -118,7 +118,7 @@ public class MySQL {
 				user.setUsername(res.getString("Username"));
 				user.setUserid(res.getInt("Userid"));
 				user.setSex(res.getString("Sex"));
-				user.setUnitID(res.getInt("UnitID"));
+				user.setUnitID(res.getInt("Labid"));
 				user.setEducationID(res.getInt("EducationID"));
 				user.setWorkID(res.getInt("WorkID"));
 				user.setEmail(res.getString("Email"));
@@ -142,11 +142,11 @@ public class MySQL {
 		
 		try {
 			stm = con.createStatement();
-			String sql = String.format("SELECT * FROM lab WHERE id=(select unitid from user where userid =%d)",id);
+			String sql = String.format("SELECT * FROM lab WHERE labid=(select labid from user where userid =%d)",id);
 			res = stm.executeQuery(sql);
 			if (res.next()) {
 				lab=new Lab();
-				lab.setId(res.getInt("id"));
+				lab.setId(res.getInt("labid"));
 				lab.setLabname(res.getString("labname"));
 				lab.setLabpeople(res.getString("labpeople"));
 				lab.setEmail(res.getString("email"));
@@ -224,7 +224,7 @@ public class MySQL {
 		return unit;
 	}
 	
-	public Vector<Cs> selectEqu(int page,String unit,int type) {
+	public Vector<Cs> selectEqu(int page,String unit) {
 		Vector<Cs> ret=new Vector<Cs>();
 		try {
 			stm = con.createStatement();
@@ -270,55 +270,93 @@ public class MySQL {
 		return ret;
 	}
 	
-	public Vector<Cs> selectCsAll(String aim,String unit,int page) {
-	Vector<Cs> ret=new Vector<Cs>();
-	try {
-		stm = con.createStatement();
-		String sql=String.format("SELECT * FROM cs where concat(EquNumber, EquName, EquQua, ModelSpe, EquDate, EquSta, EquClass, "
-					+ "EquUnit, Manufacturer, Supplier, Specifications, OrderDate, Inspector, Quality,"
-					+ "  Maintainer, InventoryPosition, PresentPosition, UnitPrice,"
-					+ " OrderQuantity, Handler,extra) like  \"%%%s%%\" and  (EquUnit ='%s' or EquUnit = '%s') limit %d,5",aim,unit,"All",page*5);
-		System.out.println(sql);
-		res = stm.executeQuery(sql);
-		while(res.next()) {
-			Cs Cp=new Cs();
-			
-			Cp.setEquNumber(res.getInt("EquNumber"));
-			Cp.setEquQua(res.getString("EquQua"));
-			Cp.setEquName(res.getString("EquName"));
-			Cp.setModelSpe(res.getString("ModelSpe"));
-			Cp.setEquDate(res.getString("EquDate"));
-			
-			Cp.setEquSta(res.getString("EquSta"));
-			Cp.setEquClass(res.getString("EquClass"));
-			Cp.setEquUnit(res.getString("EquUnit"));
-			Cp.setManufacturer(res.getString("Manufacturer"));
-			Cp.setSupplier(res.getString("Supplier"));
-			
-			Cp.setSpecifications(res.getString("Specifications"));
-			Cp.setOrderDate(res.getString("OrderDate"));
-			Cp.setInspector(res.getString("Inspector"));
-			Cp.setQuality(res.getString("Quality"));
-			Cp.setMaintainer(res.getString("Maintainer"));
-			
-			Cp.setInventoryPosition(res.getString("InventoryPosition"));
-			Cp.setPresentPosition(res.getString("PresentPosition"));
-			Cp.setUnitPrice(res.getString("UnitPrice"));
+	public Vector<Cs> selectCsView(int page,String unit) {
+		Vector<Cs> ret=new Vector<Cs>();
+		try {
+			stm = con.createStatement();
+			String sql="";
+			sql=  String.format("SELECT * FROM vies_test where (EquUnit = '%s' or EquUnit = '%s') and EquSta  like  \"%%%s%%\"  limit %d,5",unit,"All","空闲",page*5);
+			System.out.println(sql);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				Cs Cp=new Cs();			
+				Cp.setEquName(res.getString("EquName"));
+				Cp.setEquDate(res.getString("EquDate"));
+								
+				Cp.setEquSta(res.getString("EquSta"));
+				Cp.setEquClass(res.getString("EquClass"));
+				Cp.setEquUnit(res.getString("EquUnit"));
 
-			Cp.setOrderQuantity(res.getInt("OrderQuantity"));
+				Cp.setOrderDate(res.getString("OrderDate"));
+				Cp.setInspector(res.getString("Inspector"));
 
-			Cp.setHandler(res.getString("Handler"));
+				
+				Cp.setInventoryPosition(res.getString("InventoryPosition"));
+				Cp.setPresentPosition(res.getString("PresentPosition"));
 
-			Cp.setExtra(res.getString("extra"));
-			
-			ret.add(Cp);
+				Cp.setExtra(res.getString("extra"));
+				Cp.setLabid(res.getInt("labid"));
+				ret.add(Cp);
+			}
+			stm.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
 		}
-		stm.close();
-	}catch (SQLException e) {
-		e.printStackTrace();
+		return ret;
 	}
-	return ret;
+	
+	public Vector<Cs> selectCsAll(String aim,String unit,int page) {
+		Vector<Cs> ret=new Vector<Cs>();
+		try {
+			stm = con.createStatement();
+			String sql=String.format("SELECT * FROM cs where concat(EquNumber, EquName, EquQua, ModelSpe, EquDate, EquSta, EquClass, "
+						+ "EquUnit, Manufacturer, Supplier, Specifications, OrderDate, Inspector, Quality,"
+						+ "  Maintainer, InventoryPosition, PresentPosition, UnitPrice,"
+						+ " OrderQuantity, Handler,extra) like  \"%%%s%%\" and  (EquUnit ='%s' or EquUnit = '%s') limit %d,5",aim,unit,"All",page*5);
+			System.out.println(sql);
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				Cs Cp=new Cs();
+				
+				Cp.setEquNumber(res.getInt("EquNumber"));
+				Cp.setEquQua(res.getString("EquQua"));
+				Cp.setEquName(res.getString("EquName"));
+				Cp.setModelSpe(res.getString("ModelSpe"));
+				Cp.setEquDate(res.getString("EquDate"));
+				
+				Cp.setEquSta(res.getString("EquSta"));
+				Cp.setEquClass(res.getString("EquClass"));
+				Cp.setEquUnit(res.getString("EquUnit"));
+				Cp.setManufacturer(res.getString("Manufacturer"));
+				Cp.setSupplier(res.getString("Supplier"));
+				
+				Cp.setSpecifications(res.getString("Specifications"));
+				Cp.setOrderDate(res.getString("OrderDate"));
+				Cp.setInspector(res.getString("Inspector"));
+				Cp.setQuality(res.getString("Quality"));
+				Cp.setMaintainer(res.getString("Maintainer"));
+				
+				Cp.setInventoryPosition(res.getString("InventoryPosition"));
+				Cp.setPresentPosition(res.getString("PresentPosition"));
+				Cp.setUnitPrice(res.getString("UnitPrice"));
+	
+				Cp.setOrderQuantity(res.getInt("OrderQuantity"));
+	
+				Cp.setHandler(res.getString("Handler"));
+	
+				Cp.setExtra(res.getString("extra"));
+				
+				ret.add(Cp);
+			}
+			stm.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
+	
+
+	
 	public Cs selectEquNumber(int EquNumber) {
 	Cs Cp=null;
 	try {
@@ -378,11 +416,11 @@ public class MySQL {
 	public void insertRetire(Retirement re) {
 		try {
 			stm = con.createStatement();
-			String sql = "INSERT INTO retire(EquNumber,EquName,EquDate, ApplicationDate, Applicant, RetireDate"
-					+ ",Approver,EquUnit,EquClass,InventoryPosition,UnitPrice,Handler,EquSta,Application) VALUES " +
-					String.format("(%d,\"%s\",\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
-							,re.getEquNumber(),re.getEquName(),re.getEquDate(),re.getApplicationDate(),re.getApplicant(),re.getRetireDate()
-							,re.getApprover(),re.getEquUnit(),re.getEquClass(),re.getInventoryPosition(),re.getUnitPrice(),re.getHandler(),re.getEquSta(),re.getApplication());
+			String sql = "INSERT INTO retire(EquNumber,EquName,ApplicationDate, Applicant, RetireDate"
+					+ ",Approver,EquUnit,EquSta,Application) VALUES " +
+					String.format("(%d,\"%s\",\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
+							,re.getEquNumber(),re.getEquName(),re.getApplicationDate(),re.getApplicant(),re.getRetireDate()
+							,re.getApprover(),re.getEquUnit(),re.getEquSta(),re.getApplication());
 			stm.executeUpdate(sql);
 			stm.close();
 		} catch (SQLException e) {
@@ -395,7 +433,7 @@ public class MySQL {
 		Vector<Retirement> reh=new Vector<Retirement>();
 		try {
 			stm = con.createStatement();
-			String sql = String.format("SELECT * FROM retire where (EquUnit = '%s' or EquUnit = '%s') limit %d,5",unit,"All",page*5);
+			String sql = String.format("SELECT * FROM retire,cs where retire.equnumber=cs.equnumber and (retire.EquUnit = '%s' or retire.EquUnit = '%s') limit %d,5",unit,"All",page*5);
 			res = stm.executeQuery(sql);
 			while(res.next()) {
 				Retirement Re=new Retirement();
@@ -447,7 +485,7 @@ public class MySQL {
 				Lendin Cp=new Lendin();
 				Cp.setMaintext(res.getString("maintext"));
 				Cp.setEquName(res.getString("Equname"));
-				Cp.setLendNumber(res.getInt("LendNumber"));
+				Cp.setLendNumber(res.getInt("equNumber"));
 				Cp.setLendUnit(res.getString("LendUnit"));
 				Cp.setUnitLend(res.getString("unitlend"));
 				Cp.setSta(res.getString("Sta"));
@@ -463,7 +501,7 @@ public class MySQL {
 		}
 		return ret;
 	}
-	
+
 	public int[] getGraph() {
 		int i=0;
 		int []tmp = new int[5];

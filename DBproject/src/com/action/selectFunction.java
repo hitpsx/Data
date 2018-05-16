@@ -56,17 +56,25 @@ public class selectFunction {
 		MySQL sql=new MySQL();
 		user=sql.userInfor(userid);
 		String unit=user.getUnit();
-		Cp=sql.selectEqu(page, unit, 0);
+		Cp=sql.selectEqu(page, unit);
 		sql.close();
 		return "success";
 	}
 	
 	public String CsSelect() {
 		MySQL sql=new MySQL();
-		System.out.println(Aim);
 		user=sql.userInfor(userid);
 		Cp=sql.selectCsAll(Aim, user.getUnit(), page);
 		System.out.println(Cp.size());
+		sql.close();
+		return "success";
+	}
+	
+	public String ViewSelect() {
+		MySQL sql=new MySQL();
+		user=sql.userInfor(userid);
+		String unit=user.getUnit();
+		Cp=sql.selectCsView(page, unit);
 		sql.close();
 		return "success";
 	}
