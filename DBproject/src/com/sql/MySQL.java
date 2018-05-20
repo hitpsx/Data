@@ -269,7 +269,9 @@ public class MySQL {
 		}
 		return ret;
 	}
-	
+	/*
+	 * 视图查询
+	 */
 	public Vector<Cs> selectCsView(int page,String unit) {
 		Vector<Cs> ret=new Vector<Cs>();
 		try {
@@ -428,7 +430,9 @@ public class MySQL {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
+	 * 自然连接
+	 */
 	public Vector<Retirement> selectRetir(String unit,int page) {
 		Vector<Retirement> reh=new Vector<Retirement>();
 		try {
@@ -459,10 +463,13 @@ public class MySQL {
 		}
 		return reh;
 	}
+	/*
+	 * 插入
+	 */
 	public void insertLend(Lendin lend) {
 		try {
 			stm = con.createStatement();
-			String sql = "INSERT INTO lendin (LendNumber,Equname, LendUnit, maintext, application,unitlend,Sta,ApplicationDate1,ApplicationDate2,Applicant,Approver,Countdown) VALUES " +
+			String sql = "INSERT INTO lendin (equNumber,Equname, LendUnit, maintext, application,unitlend,Sta,ApplicationDate1,ApplicationDate2,Applicant,Approver,Countdown) VALUES " +
 					String.format("(%d,\"%s\",\"%s\", \"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");"
 							, lend.getLendNumber(),lend.getEquName(), lend.getLendUnit()
 							, lend.getMaintext(), lend.getApplication(),lend.getUnitLend(),lend.getSta()
@@ -501,7 +508,9 @@ public class MySQL {
 		}
 		return ret;
 	}
-
+    /*
+     * 聚集
+     */
 	public int[] getGraph() {
 		int i=0;
 		int []tmp = new int[5];
@@ -545,17 +554,24 @@ public class MySQL {
 		return ret;
 	}
 
+	
+	/*
+	 * 事务管理
+	 */
 	public void DeleteUser(int userid) {
 		
 		
 		try {
 			con.setAutoCommit(false);
+			
 			stm = con.createStatement();
 			stm2= con.createStatement();
+			
 			String sql= String.format("delete from education where educationid = (select educationid from user where userid=%d)",userid);
 			stm.executeUpdate(sql);
 			sql=String.format("delete from user where userid=%d",userid);
 			stm2.executeUpdate(sql);
+			
 			con.commit();
 		  }catch (SQLException e) {
 				e.printStackTrace();

@@ -174,6 +174,7 @@ public class LendFunction {
 		       
 		lend.set(LendNumber,EquName,LendUnit,maintext,application,unitlend,"´ýÈ·ÈÏ½è³ö",ApplicationDate1,ApplicationDate2,Applicant,"",Countdown);
 		sql.insertLend(lend);
+		System.out.println(lend.getEquName());
 		sql.close();
 		return "success";
 	}
